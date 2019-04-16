@@ -14,12 +14,18 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from '../components/list-items';
+import { mainListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import LayersIcon from '@material-ui/icons/Layers';
+
 
 import Entry from './entry'
 import Queue from './queue'
 import Join from './join'
+import ListItem from "@material-ui/core/es/ListItem/ListItem";
+import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
+import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
 const drawerWidth = 240;
 
@@ -135,6 +141,10 @@ class Dashboard extends React.Component {
         this.updateStates(host, joined, room_string)
     }
 
+    handleLeave = (host, joined, room_string) => {
+        this.updateStates(host, joined, room_string)
+    }
+
     pageContent(){
         const { classes } = this.props;
         const { host, joined, room_name} = this.props;
@@ -175,14 +185,18 @@ class Dashboard extends React.Component {
 
     render() {
 
-        let loggedIn = true;
 
         const { classes } = this.props;
         // const { room_name } = this.props;props
         const { host, joined, room_name} = this.props;
+        //
+        // if ((host === false) && (joined === false)){
+        //     loggedIn = false;
+        // }
 
-        if ((host === false) && (joined === false)){
-            loggedIn = false;
+        let loggedIn = false;
+        if (host || joined){
+            loggedIn = true;
         }
 
         return (
@@ -242,9 +256,30 @@ class Dashboard extends React.Component {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>{mainListItems}</List>
+                    <List>
+                        {loggedIn &&
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <LayersIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Leave Group"/>
+                            </ListItem>
+                        }
+                        <ListItem button>
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <LayersIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="About" />
+                        </ListItem>
+                    </List>
                     <Divider />
-                    <List>{secondaryListItems}</List>
+                    {/*<List>{secondaryListItems}</List>*/}
                 </Drawer>
 
 

@@ -80,7 +80,7 @@ function SimpleTable(props) {
     //todo have this as a prop passed in
     const { isHost } = props;
 
-    const host = isHost.isHost
+    const host = isHost.isHost //shitty debug but hey at least it works
 
 
     return (
