@@ -14,11 +14,19 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from '../components/list-items';
+import { mainListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import LayersIcon from '@material-ui/icons/Layers';
+
 
 import Entry from './entry'
-import HostQueue from './host-queue'
+import Queue from './queue'
+import Host from './host'
+import Join from './join'
+import ListItem from "@material-ui/core/es/ListItem/ListItem";
+import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
+import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
 const drawerWidth = 240;
 
@@ -107,6 +115,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
     state = {
         open: true,
+        processing: false,
     };
 
     handleDrawerOpen = () => {
@@ -131,7 +140,26 @@ class Dashboard extends React.Component {
     // }
 
     handleEntry = (host, joined, room_string) => {
-        this.updateStates(host, joined, room_string)
+        this.updateProcessing(true)
+        this.updateStates(host, joined, room_string);
+        // this.setState({
+        //     processing: true,
+        // }, () => this.updateStates(host, joined, room_string));
+        // this.updateStates(host, joined, room_string)
+    }
+
+    updateProcessing = (bool) => {
+        this.setState({ processing: bool });
+    }
+
+    // toggleProcessing = () => {
+    //     this.setState(({
+    //         processing: !this.state.processing
+    //     }))
+    // }
+
+    handleLeave = () => {
+        this.updateStates(false, false, '')
     }
 
     pageContent(){
@@ -143,7 +171,9 @@ class Dashboard extends React.Component {
             return(
                 <div className={classes.appBarSpacer}>
                     <Typography>
-                        <HostQueue />
+                        <Host
+                            updateProcessing={this.updateProcessing}
+                        />
                     </Typography>
                 </div>
             )
@@ -151,7 +181,11 @@ class Dashboard extends React.Component {
         else if (joined){
             return(
                 <div className={classes.appBarSpacer}>
-                    <p>hello joined</p>
+                    <Typography>
+                        <Join
+                            updateProcessing={this.updateProcessing}
+                        />
+                    </Typography>
                 </div>
             )
         }
@@ -170,15 +204,24 @@ class Dashboard extends React.Component {
 
     render() {
 
-        let loggedIn = true;
 
         const { classes } = this.props;
         // const { room_name } = this.props;props
         const { host, joined, room_name} = this.props;
+        //
+        // if ((host === false) && (joined === false)){
+        //     loggedIn = false;
+        // }
 
-        if ((host === false) && (joined === false)){
-            loggedIn = false;
+        let loggedIn = false;
+        if (!this.state.processing){
+            if (host || joined){
+                loggedIn = true;
+            }
         }
+        // if (host || joined){
+        //     loggedIn = true;
+        // }
 
         return (
             <div className={classes.root}>
@@ -208,20 +251,18 @@ class Dashboard extends React.Component {
                         >
                             Dashboard
                         </Typography>
-                        {/*<IconButton color="inherit">*/}
-                            {/*<Badge badgeContent={4} color="secondary">*/}
-                                {/*<NotificationsIcon />*/}
-                            {/*</Badge>*/}
-                        {/*</IconButton>*/}
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.roomName}
-                        >
-                            {room_name}
-                        </Typography>
+
+                        {loggedIn &&
+                            <Typography
+                                component="h1"
+                                variant="h6"
+                                color="inherit"
+                                noWrap
+                                className={classes.roomName}
+                            >
+                               Your Group Name: {room_name}
+                            </Typography>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -237,9 +278,30 @@ class Dashboard extends React.Component {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>{mainListItems}</List>
+                    <List>
+                        {loggedIn &&
+                            <ListItem button onClick={this.handleLeave}>
+                                <ListItemIcon>
+                                    <LayersIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Leave Group"/>
+                            </ListItem>
+                        }
+                        <ListItem button>
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <LayersIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="About" />
+                        </ListItem>
+                    </List>
                     <Divider />
-                    <List>{secondaryListItems}</List>
+                    {/*<List>{secondaryListItems}</List>*/}
                 </Drawer>
 
 
