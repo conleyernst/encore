@@ -88,7 +88,9 @@ function SimpleTable(props) {
                         <TableCell align="right">Title</TableCell>
                         <TableCell align="right">Artist</TableCell>
                         <TableCell align="right">Score</TableCell>
-                        <TableCell align="right">Vote</TableCell>
+                        {!isHost &&
+                            <TableCell align="right">Vote</TableCell>
+                        }
                         {isHost &&
                             <TableCell align="right">Veto</TableCell>
                         }
@@ -103,10 +105,12 @@ function SimpleTable(props) {
                             {/*<TableCell align="right">{n.title}</TableCell>*/}
                             <TableCell align="right">{n.artist}</TableCell>
                             <TableCell align="right">{n.score}</TableCell>
-                            <TableCell align="right">
-                                <Button variant="contained" color="primary">Yee</Button>
-                                <Button variant="contained" color="primary">Nee</Button>
-                            </TableCell>
+                            {!isHost &&
+                                <TableCell align="right">
+                                    <Button variant="contained" color="primary">Yee</Button>
+                                    <Button variant="contained" color="primary">Nee</Button>
+                                </TableCell>
+                            }
                             {isHost &&
                                 <TableCell align="right">
                                     <Button variant="contained" color="primary">Veto</Button>
