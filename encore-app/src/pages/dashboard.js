@@ -116,12 +116,30 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+    updateStates(host, joined, room_string) {
+
+        this.props.updateStates({
+            host: host,
+            joined: joined,
+            room_string: room_string
+        })
+    }
+
+    handleEntry = () => {
+        this.updateStates(false, true, 'cool')
+    }
+
     render() {
 
-        const loggedIn = true;
+        let loggedIn = true;
 
         const { classes } = this.props;
-        const { room_name } = this.props;
+        // const { room_name } = this.props;props
+        const { host, joined, room_name} = this.props;
+
+        if ((host === false) && (joined === false)){
+            loggedIn = false;
+        }
 
         return (
             <div className={classes.root}>
@@ -187,12 +205,21 @@ class Dashboard extends React.Component {
 
 
                 <main className={classes.content}>
-                    {loggedIn &&
+                    {!loggedIn &&
                         <div className={classes.appBarSpacer}>
                             <Typography>
-                                <Entry />
+                                <Entry
+                                    handleEntry={this.handleEntry}
+                                />
                             </Typography>
                         </div>
+                    }
+                    {loggedIn &&
+                    <div className={classes.appBarSpacer}>
+                        <Typography>
+                           <p>hello</p>
+                        </Typography>
+                    </div>
                     }
                     {/*<Typography variant="h4" gutterBottom component="h2">*/}
                     {/*Orders*/}

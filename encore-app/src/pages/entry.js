@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import Grid from "@material-ui/core/es/Grid/Grid";
+import Paper from "@material-ui/core/es/Paper/Paper";
+import Button from "@material-ui/core/es/Button/Button";
 
 class Entry extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             foo: '',
 
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleJoin = this.handleJoin.bind(this)
 
     }
 
@@ -48,13 +52,30 @@ class Entry extends Component {
         // })
     }
 
+    handleJoin(event) {
+        event.preventDefault();
+        this.props.handleEntry();
+    }
+
     render() {
             return (
-                <div>
-                   <p>entry!</p>
-                    <p>entry!</p>
-                    <p>entry!</p>
-                    <p>entry!</p>
+                <div className="entry-page">
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
+                            <h2>Encore</h2>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" color="primary" onClick={this.handleJoin}>Join</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" color="primary">Host</Button>
+                        </Grid>
+                    </Grid>
                 </div>
             )
         }
