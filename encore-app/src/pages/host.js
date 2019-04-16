@@ -6,7 +6,7 @@ import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
 
-class Join extends Component {
+class Host extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,8 +22,8 @@ class Join extends Component {
 
         //todo search and check for the room here, if found render the queue
         this.setState({
-                showQueue: true
-            });
+            showQueue: true
+        });
 
     }
 
@@ -32,7 +32,7 @@ class Join extends Component {
         if (this.state.showQueue){
             return (
                 <Queue
-                    isHost={false}
+                    isHost={true}
                 />
             )
         }
@@ -49,7 +49,7 @@ class Join extends Component {
                             <h2>Enter your code...</h2>
                         </Grid>
                         <Grid item xs={6}>
-                            <p>enter code here...</p>
+                            <p>Your code is 'happy-apple'</p>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
@@ -58,29 +58,7 @@ class Join extends Component {
                 </div>
             )
         }
-
-
-        // return (
-        //     <div className="entry-page">
-        //         <Grid
-        //             container
-        //             direction="row"
-        //             justify="center"
-        //             alignItems="center"
-        //         >
-        //             <Grid item xs={12}>
-        //                 <h2>Enter your code...</h2>
-        //             </Grid>
-        //             <Grid item xs={6}>
-        //                 <p>enter code here...</p>
-        //             </Grid>
-        //             <Grid item xs={6}>
-        //                 <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
-        //             </Grid>
-        //         </Grid>
-        //     </div>
-        // )
     }
 }
 
-export default Join
+export default Host

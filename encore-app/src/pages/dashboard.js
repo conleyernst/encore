@@ -22,6 +22,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 
 import Entry from './entry'
 import Queue from './queue'
+import Host from './host'
 import Join from './join'
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
@@ -114,6 +115,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
     state = {
         open: true,
+        processing: false,
     };
 
     handleDrawerOpen = () => {
@@ -138,8 +140,23 @@ class Dashboard extends React.Component {
     // }
 
     handleEntry = (host, joined, room_string) => {
-        this.updateStates(host, joined, room_string)
+        this.updateProcessing(true)
+        this.updateStates(host, joined, room_string);
+        // this.setState({
+        //     processing: true,
+        // }, () => this.updateStates(host, joined, room_string));
+        // this.updateStates(host, joined, room_string)
     }
+
+    updateProcessing = (bool) => {
+        this.setState({ processing: bool });
+    }
+
+    // toggleProcessing = () => {
+    //     this.setState(({
+    //         processing: !this.state.processing
+    //     }))
+    // }
 
     handleLeave = () => {
         this.updateStates(false, false, '')
@@ -154,8 +171,8 @@ class Dashboard extends React.Component {
             return(
                 <div className={classes.appBarSpacer}>
                     <Typography>
-                        <Queue
-                            isHost={true}
+                        <Host
+                            updateProcessing={this.updateProcessing}
                         />
                     </Typography>
                 </div>
@@ -165,7 +182,9 @@ class Dashboard extends React.Component {
             return(
                 <div className={classes.appBarSpacer}>
                     <Typography>
-                        <Join />
+                        <Join
+                            updateProcessing={this.updateProcessing}
+                        />
                     </Typography>
                 </div>
             )
@@ -195,9 +214,14 @@ class Dashboard extends React.Component {
         // }
 
         let loggedIn = false;
-        if (host || joined){
-            loggedIn = true;
+        if (!this.state.processing){
+            if (host || joined){
+                loggedIn = true;
+            }
         }
+        // if (host || joined){
+        //     loggedIn = true;
+        // }
 
         return (
             <div className={classes.root}>
@@ -227,20 +251,18 @@ class Dashboard extends React.Component {
                         >
                             Dashboard
                         </Typography>
-                        {/*<IconButton color="inherit">*/}
-                            {/*<Badge badgeContent={4} color="secondary">*/}
-                                {/*<NotificationsIcon />*/}
-                            {/*</Badge>*/}
-                        {/*</IconButton>*/}
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.roomName}
-                        >
-                            {room_name}
-                        </Typography>
+
+                        {loggedIn &&
+                            <Typography
+                                component="h1"
+                                variant="h6"
+                                color="inherit"
+                                noWrap
+                                className={classes.roomName}
+                            >
+                               Your Group Name: {room_name}
+                            </Typography>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Drawer
