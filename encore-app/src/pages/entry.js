@@ -54,7 +54,8 @@ class Entry extends Component {
 
     handleJoin(event) {
         event.preventDefault();
-        this.props.handleEntry();
+        const str = 'sick-bro';
+        this.props.handleEntry(false, true, str);
     }
 
     render() {

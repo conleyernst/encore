@@ -125,8 +125,12 @@ class Dashboard extends React.Component {
         })
     }
 
-    handleEntry = () => {
-        this.updateStates(false, true, 'cool')
+    // handleEntry = () => {
+    //     this.updateStates(false, true, 'cool')
+    // }
+
+    handleEntry = (host, joined, room_string) => {
+        this.updateStates(host, joined, room_string)
     }
 
     render() {
