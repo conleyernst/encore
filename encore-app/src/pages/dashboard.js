@@ -18,6 +18,7 @@ import { mainListItems, secondaryListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
 
 import Entry from './entry'
+import HostQueue from './host-queue'
 
 const drawerWidth = 240;
 
@@ -133,6 +134,40 @@ class Dashboard extends React.Component {
         this.updateStates(host, joined, room_string)
     }
 
+    pageContent(){
+        const { classes } = this.props;
+        const { host, joined, room_name} = this.props;
+
+        if (host){
+            //add host page
+            return(
+                <div className={classes.appBarSpacer}>
+                    <Typography>
+                        <HostQueue />
+                    </Typography>
+                </div>
+            )
+        }
+        else if (joined){
+            return(
+                <div className={classes.appBarSpacer}>
+                    <p>hello joined</p>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div className={classes.appBarSpacer}>
+                    <Typography>
+                        <Entry
+                            handleEntry={this.handleEntry}
+                        />
+                    </Typography>
+                </div>
+            )
+        }
+    }
+
     render() {
 
         let loggedIn = true;
@@ -209,22 +244,23 @@ class Dashboard extends React.Component {
 
 
                 <main className={classes.content}>
-                    {!loggedIn &&
-                        <div className={classes.appBarSpacer}>
-                            <Typography>
-                                <Entry
-                                    handleEntry={this.handleEntry}
-                                />
-                            </Typography>
-                        </div>
-                    }
-                    {loggedIn &&
-                    <div className={classes.appBarSpacer}>
-                        <Typography>
-                           <p>hello</p>
-                        </Typography>
-                    </div>
-                    }
+                    {this.pageContent()}
+                    {/*{!loggedIn &&*/}
+                        {/*<div className={classes.appBarSpacer}>*/}
+                            {/*<Typography>*/}
+                                {/*<Entry*/}
+                                    {/*handleEntry={this.handleEntry}*/}
+                                {/*/>*/}
+                            {/*</Typography>*/}
+                        {/*</div>*/}
+                    {/*}*/}
+                    {/*{loggedIn &&*/}
+                    {/*<div className={classes.appBarSpacer}>*/}
+                        {/*<Typography>*/}
+                           {/*<p>hello</p>*/}
+                        {/*</Typography>*/}
+                    {/*</div>*/}
+                    {/*}*/}
                     {/*<Typography variant="h4" gutterBottom component="h2">*/}
                     {/*Orders*/}
                     {/*</Typography>*/}
