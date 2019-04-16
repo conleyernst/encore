@@ -21,11 +21,25 @@ connection.once('open', function() {
 	console.log("MongoDB database connection established successfully");
 });
 
-routes.route('/add/:id').get(function (req, res) {
-	let id = req.params.id;
-	Song.findById(id, function(err, song){
-		res.json(song);
+routes.route('/add').post(function (req, res) {
+	let song = new Song(req.body);
+	song.save()
+		.then(song => {
+			res.status(200).json({'song': 'song added successfully'});
+		})
+		.catch(err => {
+		res.status(400).send('adding new song failed');
 	});
+});
+
+routes.route('/').get(function (req, res) {
+	Song.find(function(err, songs) {
+		if (err) {
+			console.error(err);
+		} else {
+			res.json(songs);
+		}
+	})
 });
 
 app.use('/songs', routes);
