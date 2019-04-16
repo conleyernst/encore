@@ -16,7 +16,7 @@ class App extends Component {
         this.state = {
             host: false,
             joined: false,
-            room_string: 'happy-apple',
+            room_string: '',
         };
 
         this.updateStates = this.updateStates.bind(this)
@@ -28,7 +28,6 @@ class App extends Component {
 
   render() {
 
-        const roomName = 'main';
     return (
       <div className="App">
           <Dashboard
