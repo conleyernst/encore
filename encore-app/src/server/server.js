@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const env = require('dotenv').config();
 const routes = express.Router();
 const PORT = 4000;
 
@@ -9,7 +10,7 @@ let Song = require('./song.model');
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://teamencorecosmos:ngQZEuQdvVz3UikEwfKwcQUs130x85uLPrejT6K7METo2z2koXK2WSwe5EX6QNJGqBvQevNla6PEQeRVKMfV3Q==@teamencorecosmos.documents.azure.com:10255/songstorage?ssl=true', { useNewUrlParser: true }
+mongoose.connect('mongodb://teamencorecosmos:' + process.env.COSMOSDB_PASSWORD + '@teamencorecosmos.documents.azure.com:10255/songstorage?ssl=true', { useNewUrlParser: true }
 ).then(
 	() => {console.log('Connection to CosmosDB successful')},
 	err => {
