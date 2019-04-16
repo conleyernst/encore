@@ -1,5 +1,20 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import Grid from "@material-ui/core/es/Grid/Grid";
+import Button from "@material-ui/core/es/Button/Button";
+
+import SimpleTable from '../components/simple-table';
+import MediaControlCard from '../components/media-control-card';
+
+
+import img from '../assets/american-idiot.jpg'
+
+const mockData = {
+    songTitle: 'Holiday',
+    artist: 'Green Day',
+    image: img,
+    imgDescr: 'Album cover for American Idiot'
+};
 
 class HostQueue extends Component {
     constructor() {
@@ -50,8 +65,29 @@ class HostQueue extends Component {
 
     render() {
         return (
-            <div>
-                <p>host!</p>
+            <div className="host-queue">
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Grid item xs={12}>
+                        <h2>Host Page!</h2>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <h2>Currently Playing</h2>
+                        <MediaControlCard
+                            title={mockData.songTitle}
+                            artist={mockData.artist}
+                            img={mockData.image}
+                            descr={mockData.imgDescr}
+                        />
+                    </Grid>
+                    <Grid item xs={8}>
+                        <SimpleTable />
+                    </Grid>
+                </Grid>
             </div>
         )
     }

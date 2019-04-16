@@ -1,60 +1,48 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import Grid from "@material-ui/core/es/Grid/Grid";
+import Paper from "@material-ui/core/es/Paper/Paper";
+import Button from "@material-ui/core/es/Button/Button";
 
 class Entry extends Component {
-    constructor() {
-        super()
-        this.state = {
-            foo: '',
-
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+    constructor(props) {
+        super(props)
+        this.handleJoin = this.handleJoin.bind(this)
+        this.handleHost = this.handleHost.bind(this)
 
     }
 
-    handleChange(event) {
-        // this.setState({
-        //     [event.target.name]: event.target.value
-        // })
+    handleJoin(event) {
+        event.preventDefault();
+        const str = 'sick-bro';
+        this.props.handleEntry(false, true, str);
     }
 
-    handleSubmit(event) {
-        // event.preventDefault()
-        // console.log('handleSubmit')
-        //
-        // axios
-        //     .post('/user/login', {
-        //         username: this.state.username,
-        //         password: this.state.password
-        //     })
-        //     .then(response => {
-        //         console.log('login response: ')
-        //         console.log(response)
-        //         if (response.status === 200) {
-        //             // update App.js state
-        //             this.props.updateUser({
-        //                 loggedIn: true,
-        //                 username: response.data.username
-        //             })
-        //             // update the state to redirect to home
-        //             this.setState({
-        //                 redirectTo: '/'
-        //             })
-        //         }
-        //     }).catch(error => {
-        //     console.log('login error: ')
-        //     console.log(error);
-        // })
+    handleHost(event) {
+        event.preventDefault();
+        const str = 'wow';
+        this.props.handleEntry(true, false, str);
     }
 
     render() {
             return (
-                <div>
-                   <p>entry!</p>
-                    <p>entry!</p>
-                    <p>entry!</p>
-                    <p>entry!</p>
+                <div className="entry-page">
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
+                            <h2>Encore</h2>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" color="primary" onClick={this.handleJoin}>Join</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" color="primary" onClick={this.handleHost}>Host</Button>
+                        </Grid>
+                    </Grid>
                 </div>
             )
         }

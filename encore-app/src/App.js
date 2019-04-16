@@ -10,11 +10,32 @@ import BottomAppBar from './components/bottom-appbar'
 import Dashboard from './pages/dashboard'
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            host: false,
+            joined: false,
+            room_string: 'happy-apple',
+        };
+
+        this.updateStates = this.updateStates.bind(this)
+    }
+
+    updateStates(obj) {
+        this.setState(obj);
+    }
+
   render() {
+
+        const roomName = 'main';
     return (
       <div className="App">
           <Dashboard
-              room_name='main'
+              room_name={this.state.room_string}
+              host={this.state.host}
+              joined={this.state.joined}
+              updateStates={this.updateStates}
           />
 
           {/*<p>Hello world!</p>*/}
