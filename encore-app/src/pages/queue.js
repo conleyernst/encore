@@ -16,9 +16,9 @@ const mockData = {
     imgDescr: 'Album cover for American Idiot'
 };
 
-class HostQueue extends Component {
-    constructor() {
-        super()
+class Queue extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
             foo: '',
 
@@ -64,6 +64,9 @@ class HostQueue extends Component {
     }
 
     render() {
+        const hosting = this.props;
+        console.log("Q: " + hosting)
+
         return (
             <div className="host-queue">
                 <Grid
@@ -85,7 +88,9 @@ class HostQueue extends Component {
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <SimpleTable />
+                        <SimpleTable
+                            isHost={hosting}
+                        />
                     </Grid>
                 </Grid>
             </div>
@@ -93,4 +98,4 @@ class HostQueue extends Component {
     }
 }
 
-export default HostQueue
+export default Queue

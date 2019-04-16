@@ -18,7 +18,8 @@ import { mainListItems, secondaryListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
 
 import Entry from './entry'
-import HostQueue from './host-queue'
+import Queue from './queue'
+import Join from './join'
 
 const drawerWidth = 240;
 
@@ -143,7 +144,9 @@ class Dashboard extends React.Component {
             return(
                 <div className={classes.appBarSpacer}>
                     <Typography>
-                        <HostQueue />
+                        <Queue
+                            isHost={true}
+                        />
                     </Typography>
                 </div>
             )
@@ -151,7 +154,9 @@ class Dashboard extends React.Component {
         else if (joined){
             return(
                 <div className={classes.appBarSpacer}>
-                    <p>hello joined</p>
+                    <Typography>
+                        <Join />
+                    </Typography>
                 </div>
             )
         }

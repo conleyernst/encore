@@ -78,7 +78,10 @@ function SimpleTable(props) {
     }
 
     //todo have this as a prop passed in
-    const isHost = true;
+    const { isHost } = props;
+
+    const host = isHost.isHost
+
 
     return (
         <Paper className={classes.root}>
@@ -88,10 +91,10 @@ function SimpleTable(props) {
                         <TableCell align="right">Title</TableCell>
                         <TableCell align="right">Artist</TableCell>
                         <TableCell align="right">Score</TableCell>
-                        {!isHost &&
+                        {!host &&
                             <TableCell align="right">Vote</TableCell>
                         }
-                        {isHost &&
+                        {host &&
                             <TableCell align="right">Veto</TableCell>
                         }
                     </TableRow>
@@ -105,13 +108,13 @@ function SimpleTable(props) {
                             {/*<TableCell align="right">{n.title}</TableCell>*/}
                             <TableCell align="right">{n.artist}</TableCell>
                             <TableCell align="right">{n.score}</TableCell>
-                            {!isHost &&
+                            {!host &&
                                 <TableCell align="right">
                                     <Button variant="contained" color="primary">Yee</Button>
                                     <Button variant="contained" color="primary">Nee</Button>
                                 </TableCell>
                             }
-                            {isHost &&
+                            {host &&
                                 <TableCell align="right">
                                     <Button variant="contained" color="primary">Veto</Button>
                                 </TableCell>
