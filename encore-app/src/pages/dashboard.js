@@ -141,8 +141,8 @@ class Dashboard extends React.Component {
         this.updateStates(host, joined, room_string)
     }
 
-    handleLeave = (host, joined, room_string) => {
-        this.updateStates(host, joined, room_string)
+    handleLeave = () => {
+        this.updateStates(false, false, '')
     }
 
     pageContent(){
@@ -258,7 +258,7 @@ class Dashboard extends React.Component {
                     <Divider />
                     <List>
                         {loggedIn &&
-                            <ListItem button>
+                            <ListItem button onClick={this.handleLeave}>
                                 <ListItemIcon>
                                     <LayersIcon/>
                                 </ListItemIcon>
