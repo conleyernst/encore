@@ -18,6 +18,8 @@ import { mainListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import LayersIcon from '@material-ui/icons/Layers';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 import Entry from './entry'
@@ -109,6 +111,14 @@ const styles = theme => ({
     },
     h5: {
         marginBottom: theme.spacing.unit * 2,
+    },
+    bottomBar: {
+        top: 'auto',
+        bottom: 0,
+    },
+    searchBar: {
+        flexGrow: 1,
+        textAlignLast: 'end',
     },
 });
 
@@ -345,6 +355,37 @@ class Dashboard extends React.Component {
                         {/*<SimpleTable />*/}
                     {/*</div>*/}
                 </main>
+
+                <AppBar position="fixed" color="primary" className={classes.bottomBar}>
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="Open drawer"
+                            onClick={this.handleDrawerOpen}
+                            className={classes.searchBar}
+                            // className={classNames(
+                            //     classes.menuButton,
+                            //     this.state.open && classes.menuButtonHidden,
+                            // )}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        {/*<IconButton color="inherit" aria-label="Open drawer">*/}
+                            {/*<MenuIcon />*/}
+                        {/*</IconButton>*/}
+                        {/*<Fab color="secondary" aria-label="Add" onClick={handleClick()} className={classes.fabButton}>*/}
+                            {/*<AddIcon />*/}
+                        {/*</Fab>*/}
+                        {/*<div>*/}
+                            {/*<IconButton color="inherit">*/}
+                                {/*<SearchIcon />*/}
+                            {/*</IconButton>*/}
+                            {/*/!*<IconButton color="inherit">*!/*/}
+                                {/*/!*<MoreIcon />*!/*/}
+                            {/*/!*</IconButton>*!/*/}
+                        {/*</div>*/}
+                    </Toolbar>
+                </AppBar>
 
 
             </div>

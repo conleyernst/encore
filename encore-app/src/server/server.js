@@ -8,6 +8,7 @@ const PORT = 4000;
 
 let Song = require('./song.model');
 
+// MIDDLEWARE
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb://teamencorecosmos:' + process.env.COSMOSDB_PASSWORD + '@teamencorecosmos.documents.azure.com:10255/songstorage?ssl=true', { useNewUrlParser: true }
@@ -98,6 +99,11 @@ routes.route('/veto/:id').post(function(req, res) {
 
 app.use('/songs', routes);
 
-app.listen(PORT, function() {
-	console.log("Server is running on Port: " + PORT);
-});
+// app.listen(PORT, function() {
+// 	console.log("Server is running on Port: " + PORT);
+// });
+
+// Starting Server
+app.listen(PORT, () => {
+    console.log(`App listening on PORT: ${PORT}`)
+})
