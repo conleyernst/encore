@@ -32,7 +32,7 @@ class Entry extends Component {
 
     // placeholder axios
     requestPlz(event) {
-        axios.get(/songs/)
+        axios.get('/songs/')
             .then(response => {
             console.log('Get song response: ')
             console.log(response.data)
