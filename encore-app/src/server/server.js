@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const env = require('dotenv').config();
 const routes = express.Router();
 const PORT = 4000;
 
@@ -10,7 +11,7 @@ let Song = require('./song.model');
 // MIDDLEWARE
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://teamencorecosmos:ngQZEuQdvVz3UikEwfKwcQUs130x85uLPrejT6K7METo2z2koXK2WSwe5EX6QNJGqBvQevNla6PEQeRVKMfV3Q==@teamencorecosmos.documents.azure.com:10255/songstorage?ssl=true', { useNewUrlParser: true }
+mongoose.connect('mongodb://teamencorecosmos:' + process.env.COSMOSDB_PASSWORD + '@teamencorecosmos.documents.azure.com:10255/songstorage?ssl=true', { useNewUrlParser: true }
 ).then(
 	() => {console.log('Connection to CosmosDB successful')},
 	err => {
@@ -41,6 +42,59 @@ routes.route('/').get(function (req, res) {
 			res.json(songs);
 		}
 	})
+});
+
+routes.route('/update/:id').post(function(req, res) {
+	Song.findById(req.params.id, function(err, song) {
+		if (!song)
+			res.status(404).send("data is not found");
+		else
+			song.votes = req.body.votes;
+
+			song.save().then(song => {
+				res.json('Song updated!');
+			}).catch(err => {
+				res.status(400).send("Update not possible");
+			});
+	});
+});
+
+routes.route('/upvote/:id').post(function(req, res) {
+	Song.findById(req.params.id, function(err, song) {
+		if (!song)
+			res.status(404).send("data is not found");
+		else
+			song.votes++;
+
+		song.save().then(song => {
+			res.json('Song updated!');
+		}).catch(err => {
+			res.status(400).send("Update not possible");
+		});
+	});
+});
+
+routes.route('/downvote/:id').post(function(req, res) {
+	Song.findById(req.params.id, function(err, song) {
+		if (!song)
+			res.status(404).send("data is not found");
+		else
+			song.votes--;
+
+		song.save().then(song => {
+			res.json('Song updated!');
+		}).catch(err => {
+			res.status(400).send("Update not possible");
+		});
+	});
+});
+
+routes.route('/veto/:id').post(function(req, res) {
+	Song.find({_id: req.params.id}).remove().then(() => {
+		res.status(200).json({'song': 'song removed successfully'});
+	}).catch(err => {
+		res.status(400).send('removing song failed');
+	});
 });
 
 app.use('/songs', routes);
