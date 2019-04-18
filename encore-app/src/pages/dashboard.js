@@ -30,6 +30,9 @@ import ListItem from "@material-ui/core/es/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
+import BottomAppBar from '../components/bottom-appbar';
+import AddSongDialog from "../components/add-song-dialog";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -126,6 +129,7 @@ class Dashboard extends React.Component {
     state = {
         open: true,
         processing: false,
+        modalIsOpen: true,
     };
 
     handleDrawerOpen = () => {
@@ -145,28 +149,18 @@ class Dashboard extends React.Component {
         })
     }
 
-    // handleEntry = () => {
-    //     this.updateStates(false, true, 'cool')
-    // }
+    updateModalState = (modalObj) => {
+        this.setState(modalObj)
+    }
 
     handleEntry = (host, joined, room_string) => {
         this.updateProcessing(true)
         this.updateStates(host, joined, room_string);
-        // this.setState({
-        //     processing: true,
-        // }, () => this.updateStates(host, joined, room_string));
-        // this.updateStates(host, joined, room_string)
     }
 
     updateProcessing = (bool) => {
         this.setState({ processing: bool });
     }
-
-    // toggleProcessing = () => {
-    //     this.setState(({
-    //         processing: !this.state.processing
-    //     }))
-    // }
 
     handleLeave = () => {
         this.updateStates(false, false, '')
@@ -216,12 +210,7 @@ class Dashboard extends React.Component {
 
 
         const { classes } = this.props;
-        // const { room_name } = this.props;props
         const { host, joined, room_name} = this.props;
-        //
-        // if ((host === false) && (joined === false)){
-        //     loggedIn = false;
-        // }
 
         let loggedIn = false;
         if (!this.state.processing){
@@ -229,9 +218,6 @@ class Dashboard extends React.Component {
                 loggedIn = true;
             }
         }
-        // if (host || joined){
-        //     loggedIn = true;
-        // }
 
         return (
             <div className={classes.root}>
@@ -311,83 +297,19 @@ class Dashboard extends React.Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    {/*<List>{secondaryListItems}</List>*/}
                 </Drawer>
 
+                <AddSongDialog
+                    isOpen={this.state.modalIsOpen}
+                    updateModalState={this.updateModalState}
+                />
 
                 <main className={classes.content}>
                     {this.pageContent()}
-                    {/*{!loggedIn &&*/}
-                        {/*<div className={classes.appBarSpacer}>*/}
-                            {/*<Typography>*/}
-                                {/*<Entry*/}
-                                    {/*handleEntry={this.handleEntry}*/}
-                                {/*/>*/}
-                            {/*</Typography>*/}
-                        {/*</div>*/}
-                    {/*}*/}
-                    {/*{loggedIn &&*/}
-                    {/*<div className={classes.appBarSpacer}>*/}
-                        {/*<Typography>*/}
-                           {/*<p>hello</p>*/}
-                        {/*</Typography>*/}
-                    {/*</div>*/}
-                    {/*}*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                    {/*Orders*/}
-                    {/*</Typography>*/}
-                    {/*<Entry />*/}
-                    {/*{loggedIn &&*/}
-                        {/*<div>*/}
-                            {/*<Entry />*/}
-                        {/*</div>*/}
-                    {/*}*/}
-
-
-                    {/*<div className={classes.appBarSpacer} />*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                        {/*Orders*/}
-                    {/*</Typography>*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                        {/*Products*/}
-                    {/*</Typography>*/}
-                    {/*<div className={classes.tableContainer}>*/}
-                        {/*<SimpleTable />*/}
-                    {/*</div>*/}
                 </main>
 
-                <AppBar position="fixed" color="primary" className={classes.bottomBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classes.searchBar}
-                            // className={classNames(
-                            //     classes.menuButton,
-                            //     this.state.open && classes.menuButtonHidden,
-                            // )}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        {/*<IconButton color="inherit" aria-label="Open drawer">*/}
-                            {/*<MenuIcon />*/}
-                        {/*</IconButton>*/}
-                        {/*<Fab color="secondary" aria-label="Add" onClick={handleClick()} className={classes.fabButton}>*/}
-                            {/*<AddIcon />*/}
-                        {/*</Fab>*/}
-                        {/*<div>*/}
-                            {/*<IconButton color="inherit">*/}
-                                {/*<SearchIcon />*/}
-                            {/*</IconButton>*/}
-                            {/*/!*<IconButton color="inherit">*!/*/}
-                                {/*/!*<MoreIcon />*!/*/}
-                            {/*/!*</IconButton>*!/*/}
-                        {/*</div>*/}
-                    </Toolbar>
-                </AppBar>
-
-
+                <BottomAppBar
+                />
             </div>
         );
     }

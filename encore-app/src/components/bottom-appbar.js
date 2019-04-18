@@ -61,23 +61,6 @@ function BottomAppBar(props) {
     return (
         <React.Fragment>
             <CssBaseline />
-            {/*<Paper square className={classes.paper}>*/}
-                {/*<Typography className={classes.text} variant="h5" gutterBottom>*/}
-                    {/*Inbox*/}
-                {/*</Typography>*/}
-                {/*<List className={classes.list}>*/}
-                    {/*{messages.map(({ id, primary, secondary, person }) => (*/}
-                        {/*<Fragment key={id}>*/}
-                            {/*{id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}*/}
-                            {/*{id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}*/}
-                            {/*<ListItem button>*/}
-                                {/*<Avatar alt="Profile Picture" src={person} />*/}
-                                {/*<ListItemText primary={primary} secondary={secondary} />*/}
-                            {/*</ListItem>*/}
-                        {/*</Fragment>*/}
-                    {/*))}*/}
-                {/*</List>*/}
-            {/*</Paper>*/}
             <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton color="inherit" aria-label="Open drawer">
