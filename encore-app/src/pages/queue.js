@@ -8,7 +8,7 @@ import MediaControlCard from '../components/media-control-card';
 
 
 import img from '../assets/american-idiot.jpg'
-
+const axios = require('axios');
 const mockData = {
     songTitle: 'Holiday',
     artist: 'Green Day',
@@ -19,12 +19,13 @@ const mockData = {
 class Queue extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            foo: '',
-
-        }
+        this.state = [{
+            songid: '',
+            votes: ''
+        }]
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        //this.getSongs = this.getSongs.bind(this)
 
     }
 
@@ -63,10 +64,30 @@ class Queue extends Component {
         // })
     }
 
+     getSongs() {
+        //GET call here should return json objects
+        axios.get('/songs/')
+        .then(response => {
+        if (response.data) {
+            //Returns sorted list
+            var sorted = response.data.sort(function(a, b) {
+                return parseFloat(b.votes) - parseFloat(a.votes);
+            });
+            this.setState({
+                data: sorted
+            });
+            return sorted;
+        } else {
+            console.log('Get Song: failed');
+        }   
+        })
+    }
+
     render() {
         const hosting = this.props;
         console.log("Q: " + hosting)
-
+        this.getSongs();
+        console.log(this.state.data);
         return (
             <div className="host-queue">
                 <Grid
