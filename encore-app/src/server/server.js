@@ -107,6 +107,14 @@ routes.route('/veto/:id').post(function(req, res) {
 	});
 });
 
+routes.route('/end').post(function(req, res) {
+	Song.deleteMany().then(() => {
+		res.status(200).json({'session': 'session ended'});
+	}).catch(err => {
+		res.status(400).send('unable to end session and remove all songs');
+	});
+});
+
 app.use('/songs', routes);
 
 // app.listen(PORT, function() {
