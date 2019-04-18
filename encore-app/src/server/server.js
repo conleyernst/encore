@@ -43,6 +43,16 @@ routes.route('/').get(function (req, res) {
 	})
 });
 
+routes.route('/:id').get(function(req, res) {
+	Song.findById(req.params.id, function(err, song) {
+		if (!song)
+			res.status(404).send("song is not found");
+		else {
+			res.status(200).json(song);
+		}
+	});
+});
+
 routes.route('/update/:id').post(function(req, res) {
 	Song.findById(req.params.id, function(err, song) {
 		if (!song)
