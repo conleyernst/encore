@@ -31,6 +31,7 @@ import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
 import BottomAppBar from '../components/bottom-appbar';
+import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
 const drawerWidth = 240;
@@ -129,7 +130,7 @@ class Dashboard extends React.Component {
     state = {
         open: true,
         processing: false,
-        modalIsOpen: true,
+        modalIsOpen: false,
     };
 
     handleDrawerOpen = () => {
@@ -308,8 +309,12 @@ class Dashboard extends React.Component {
                     {this.pageContent()}
                 </main>
 
-                <BottomAppBar
+                <FloatingActionButtons
+                    updateModalState={this.updateModalState}
                 />
+                {/*<BottomAppBar*/}
+                    {/*updateModalState={this.updateModalState}*/}
+                {/*/>*/}
             </div>
         );
     }

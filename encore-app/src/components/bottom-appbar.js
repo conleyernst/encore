@@ -33,7 +33,7 @@ const styles = theme => ({
     subHeader: {
         backgroundColor: theme.palette.background.paper,
     },
-    appBar: {
+    bottomAppBar: {
         top: 'auto',
         bottom: 0,
     },
@@ -51,40 +51,86 @@ const styles = theme => ({
     },
 });
 
-function handleClick(){
-    console.log("click click!");
+// function handleClick(){
+//     console.log("click click!");
+// }
+//
+//
+// function BottomAppBar(props) {
+//     const { classes } = props;
+//     return (
+//         <React.Fragment>
+//             <CssBaseline />
+//             <AppBar position="fixed" color="primary" className={classes.appBar}>
+//                 <Toolbar className={classes.toolbar}>
+//                     <IconButton color="inherit" aria-label="Open drawer">
+//                         <MenuIcon />
+//                     </IconButton>
+//                     <Fab color="secondary" aria-label="Add" onClick={handleClick()} className={classes.fabButton}>
+//                         <AddIcon />
+//                     </Fab>
+//                     <div>
+//                         <IconButton color="inherit">
+//                             <SearchIcon />
+//                         </IconButton>
+//                         <IconButton color="inherit">
+//                             <MoreIcon />
+//                         </IconButton>
+//                     </div>
+//                 </Toolbar>
+//             </AppBar>
+//         </React.Fragment>
+//     );
+// }
+//
+// BottomAppBar.propTypes = {
+//     classes: PropTypes.object.isRequired,
+// };
+//
+// export default withStyles(styles)(BottomAppBar);
+
+
+class BottomAppBar extends React.Component {
+    constructor(){
+        super()
+
+    }
+
+    handleClick(){
+        console.log("click click!");
+    }
+
+    render() {
+
+        return (
+            <div>
+                <CssBaseline />
+                <AppBar position="fixed" color="primary" className="bottomAppBar">
+                    <Toolbar className="toolbar">
+                        <IconButton color="inherit" aria-label="Open drawer">
+                            <MenuIcon />
+                        </IconButton>
+                        <Fab color="secondary" aria-label="Add" onClick={this.handleClick} className="fabButton">
+                            <AddIcon />
+                        </Fab>
+                        <div>
+                            <IconButton color="inherit">
+                                <SearchIcon />
+                            </IconButton>
+                            <IconButton color="inherit">
+                                <MoreIcon />
+                            </IconButton>
+                        </div>
+                    </Toolbar>
+                 </AppBar>
+            </div>
+        );
+    }
 }
 
-
-function BottomAppBar(props) {
-    const { classes } = props;
-    return (
-        <React.Fragment>
-            <CssBaseline />
-            <AppBar position="fixed" color="primary" className={classes.appBar}>
-                <Toolbar className={classes.toolbar}>
-                    <IconButton color="inherit" aria-label="Open drawer">
-                        <MenuIcon />
-                    </IconButton>
-                    <Fab color="secondary" aria-label="Add" onClick={handleClick()} className={classes.fabButton}>
-                        <AddIcon />
-                    </Fab>
-                    <div>
-                        <IconButton color="inherit">
-                            <SearchIcon />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <MoreIcon />
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-        </React.Fragment>
-    );
-}
-
-BottomAppBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+// NavTabs.propTypes = {
+//     classes: PropTypes.object.isRequired,
+// };
 
 export default withStyles(styles)(BottomAppBar);
+

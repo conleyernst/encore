@@ -23,27 +23,23 @@ class AddSongDialog extends Component {
         this.props.updateModalState({
             modalIsOpen: true,
         });
-        // this.setState({ open: true });
     };
 
     handleClose = () => {
         this.props.updateModalState({
             modalIsOpen: false,
         });
-        // this.setState({ open: false });
     };
 
     render() {
 
-        const isOpen = this.props.isOpen;
-        console.log(this.props.isOpen)
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Open form dialog
                 </Button>
                 <Dialog
-                    open={isOpen}
+                    open={this.props.isOpen}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
