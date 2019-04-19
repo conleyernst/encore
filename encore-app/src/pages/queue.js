@@ -29,6 +29,10 @@ class Queue extends Component {
 
     }
 
+    componentDidMount(){
+        this.getSongs();
+    }
+
     handleChange(event) {
         // this.setState({
         //     [event.target.name]: event.target.value
@@ -79,14 +83,15 @@ class Queue extends Component {
             return sorted;
         } else {
             console.log('Get Song: failed');
-        }   
+        }
         })
     }
 
     render() {
+
+        //prop if user is hosting session or joining session
         const hosting = this.props;
-        console.log("Q: " + hosting)
-        this.getSongs();
+
         console.log(this.state.data);
         return (
             <div className="host-queue">
