@@ -5,6 +5,26 @@ import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
+import {withStyles} from "@material-ui/core/styles/index";
+import TextField from "@material-ui/core/es/TextField/TextField";
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    dense: {
+        marginTop: 19,
+    },
+    menu: {
+        width: 200,
+    },
+});
 
 class Join extends Component {
     constructor(props) {
@@ -46,10 +66,17 @@ class Join extends Component {
                         alignItems="center"
                     >
                         <Grid item xs={12}>
-                            <h2>Enter your code...</h2>
+                            <h2>Join your room!</h2>
                         </Grid>
                         <Grid item xs={6}>
-                            <p>enter code here...</p>
+                            <TextField
+                                id="standard-textarea"
+                                label="Room ID"
+                                placeholder="Enter Room ID"
+                                multiline
+                                className="textField"
+                                margin="normal"
+                            />
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
@@ -83,4 +110,4 @@ class Join extends Component {
     }
 }
 
-export default Join
+export default withStyles(styles)(Join)

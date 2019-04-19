@@ -6,6 +6,30 @@ import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
 
+const adj = [
+    'happy',
+    'funky',
+    'crazy',
+    'cool',
+    'content',
+    'pleased',
+    'cheerful',
+    'jovial',
+    'jolly',
+    'glad',
+    'thrilled',
+    'elated',
+    'gleeful',
+    'sunny'
+];
+
+const nouns = [
+    'apple',
+    'cat',
+    'dance',
+    'speakers'
+];
+
 class Host extends Component {
     constructor(props) {
         super(props)
@@ -13,6 +37,17 @@ class Host extends Component {
             showQueue: false
         };
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.generateRoomId = this.generateRoomId.bind(this)
+    }
+
+    generateRoomId(){
+        const min = 0;
+        const maxOne = adj.length;
+        const maxTwo = nouns.length;
+        const indexOne = min + Math.floor(Math.random() * (maxOne - min));
+        const indexTwo = min + Math.floor(Math.random() * (maxTwo - min));
+
+        return adj[indexOne] + "-" + nouns[indexTwo];
     }
 
     handleSubmit(event) {
@@ -28,6 +63,9 @@ class Host extends Component {
     }
 
     render() {
+
+        // todo create function to add a room to the database
+        const roomId = this.generateRoomId();
 
         if (this.state.showQueue){
             return (
@@ -49,7 +87,7 @@ class Host extends Component {
                             <h2>Enter your code...</h2>
                         </Grid>
                         <Grid item xs={6}>
-                            <p>Your code is 'happy-apple'</p>
+                            <p>Your code is '{roomId}'</p>
                         </Grid>
                         <Grid item xs={6}>
                             <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
