@@ -7,6 +7,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+const axios = require('axios');
+
+
 class AddSongDialog extends Component {
 
     constructor(props) {
@@ -23,13 +26,18 @@ class AddSongDialog extends Component {
 
     // onChange={this.handleChange('name')}
 
+    makeSongId(songName){
+       let songId = songName;
+       songId = songId.trim().toLowerCase();
+       songId = songId.replace(/\s+/g, '');
+       return songId;
+    }
+
     handleChange = (event) => {
         this.setState({
             song: event.target.value
         });
     };
-
-
 
     handleClickOpen = () => {
         this.props.updateModalState({
@@ -45,9 +53,20 @@ class AddSongDialog extends Component {
 
     handleSubmit = () => {
         const songName = this.state.song;
-        console.log(songName)
-        //todo perform fetching logic here
+        const songId = this.makeSongId(songName);
 
+        //todo perform fetching logic here to get spotify object
+
+        const songObject = {
+            songid: songId,
+            votes: 0
+        }
+        axios.post('/songs/add', songObject)
+            .then(res => console.log(res.data))
+            .catch(error => {
+                console.log('create song error: ')
+                console.log(error)
+            });
         this.handleClose();
     };
 
