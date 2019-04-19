@@ -12,12 +12,24 @@ class AddSongDialog extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: this.props.isOpen,
+            song: 'foo',
         };
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
 
     }
+
+    // onChange={this.handleChange('name')}
+
+    handleChange = (event) => {
+        this.setState({
+            song: event.target.value
+        });
+    };
+
+
 
     handleClickOpen = () => {
         this.props.updateModalState({
@@ -31,30 +43,35 @@ class AddSongDialog extends Component {
         });
     };
 
+    handleSubmit = () => {
+        const songName = this.state.song;
+        console.log(songName)
+        //todo perform fetching logic here
+
+        this.handleClose();
+    };
+
     render() {
 
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Open form dialog
-                </Button>
                 <Dialog
                     open={this.props.isOpen}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Add Song</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We will send
-                            updates occasionally.
+                            Type the name of the song you would like to add to the queue!
                         </DialogContentText>
                         <TextField
                             autoFocus
                             margin="dense"
                             id="name"
-                            label="Email Address"
+                            label="Song Title"
                             type="email"
+                            onChange={this.handleChange}
                             fullWidth
                         />
                     </DialogContent>
@@ -62,8 +79,8 @@ class AddSongDialog extends Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
-                            Subscribe
+                        <Button onClick={this.handleSubmit} color="primary">
+                            Submit
                         </Button>
                     </DialogActions>
                 </Dialog>
