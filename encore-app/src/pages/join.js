@@ -30,22 +30,54 @@ class Join extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showQueue: false
+            showQueue: false,
+            roomIdStr: '',
+            roomIdValid: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.isRoomValid = this.isRoomValid.bind(this)
+    }
+
+
+    isRoomValid(enteredStr){
+        //todo check database for string name here, make is room valid false if nothing found
+        return true;
+
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        this.props.updateProcessing(false);
+        // // this.props.updateProcessing(false);
+        // this.props.handleEntry(false, true, 'happy cow');
+        // this.props.updateProcessing(false);
+        // // console.log('ASDFADFAF')
 
         //todo search and check for the room here, if found render the queue
-        this.setState({
+        const enteredStr = this.state.roomIdStr;
+        const valid = this.isRoomValid(enteredStr);
+
+        if (valid){
+
+            // host=false, joined=true, room_name=enteredStr
+            this.props.handleEntry(false, true, enteredStr);
+            this.props.updateProcessing(false);
+
+            this.setState({
                 showQueue: true
             });
+        } else {
+            //todo add invalid feedback here
+        }
 
     }
+
+    handleChange = (event) => {
+        this.setState({
+            roomIdStr: event.target.value
+        });
+    };
 
     render() {
 
@@ -76,6 +108,7 @@ class Join extends Component {
                                 multiline
                                 className="textField"
                                 margin="normal"
+                                onChange={this.handleChange}
                             />
                         </Grid>
                         <Grid item xs={6}>

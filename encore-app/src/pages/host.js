@@ -34,10 +34,18 @@ class Host extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showQueue: false
+            showQueue: false,
+            roomId: '',
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.generateRoomId = this.generateRoomId.bind(this)
+    }
+
+    componentDidMount(){
+        const str = this.generateRoomId();
+        this.setState({
+            roomId: str
+        });
     }
 
     generateRoomId(){
@@ -53,8 +61,9 @@ class Host extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        // host=true, joined=false, room_name=roomId
+        this.props.handleEntry(true, false, this.state.roomId);
         this.props.updateProcessing(false);
-
         //todo search and check for the room here, if found render the queue
         this.setState({
             showQueue: true
@@ -65,7 +74,7 @@ class Host extends Component {
     render() {
 
         // todo create function to add a room to the database
-        const roomId = this.generateRoomId();
+        const roomId = this.state.roomId;
 
         if (this.state.showQueue){
             return (

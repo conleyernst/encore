@@ -178,6 +178,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Host
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
@@ -189,6 +190,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Join
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
