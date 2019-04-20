@@ -7,7 +7,7 @@ import Button from "@material-ui/core/es/Button/Button";
 import Queue from './queue'
 import {withStyles} from "@material-ui/core/styles/index";
 import TextField from "@material-ui/core/es/TextField/TextField";
-import {extra_light_blue, THEME} from "../encore-theme";
+import {extra_light_blue, pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 
 const styles = theme => ({
@@ -27,6 +27,9 @@ const styles = theme => ({
     menu: {
         width: 200,
     },
+    joinHeader:{
+        color: pink,
+    }
 });
 
 class Join extends Component {
@@ -104,7 +107,7 @@ class Join extends Component {
                             alignItems="center"
                         >
                             <Grid item xs={12}>
-                                <h2>Join your room!</h2>
+                                <h2 className={classes.joinHeader}>Join your room!</h2>
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField

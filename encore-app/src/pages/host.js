@@ -5,6 +5,9 @@ import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
+import {extra_light_blue, pink, THEME} from "../encore-theme";
+import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
+import {withStyles} from "@material-ui/core/styles/index";
 
 const adj = [
     'happy',
@@ -29,6 +32,13 @@ const nouns = [
     'dance',
     'speakers'
 ];
+
+
+const styles = theme => ({
+    hostText: {
+        color: pink,
+    },
+});
 
 class Host extends Component {
     constructor(props) {
@@ -73,6 +83,8 @@ class Host extends Component {
 
     render() {
 
+        const { classes } = this.props;
+
         // todo create function to add a room to the database
         const roomId = this.state.roomId;
 
@@ -85,27 +97,28 @@ class Host extends Component {
         }
         else{
             return (
-                <div className="join-page">
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Grid item xs={12}>
-                            <h2>Enter your code...</h2>
+                <MuiThemeProvider theme={THEME}>
+                    <div className="join-page">
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Grid item xs={12}>
+                                <h2 className={classes.hostText}>Enter your code...</h2>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <p className={classes.hostText} >Your code is '{roomId}'</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <p>Your code is '{roomId}'</p>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
+                </MuiThemeProvider>
             )
         }
     }
 }
-
-export default Host
+export default withStyles(styles)(Host)

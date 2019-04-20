@@ -8,12 +8,13 @@ import {withStyles} from "@material-ui/core/styles/index";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { THEME } from '../encore-theme'
-import { pink } from '../encore-theme'
+import { pink, extra_light_pink } from '../encore-theme'
 
 const styles = theme => ({
     entryBtn: {
         margin: 20,
-        color: theme.palette.primary
+        // color: theme.palette.primary,
+        color: extra_light_pink
     },
     entryH1: {
         color: pink

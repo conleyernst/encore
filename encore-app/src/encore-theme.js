@@ -16,3 +16,4 @@ export const pink = '#CB429F';
 export const black = '#13070C';
 
 export const extra_light_blue = "#f0f2ff";
+export const extra_light_pink = '#ffcaee';
