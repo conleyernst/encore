@@ -241,27 +241,29 @@ class Dashboard extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Dashboard
-                        </Typography>
-
                         {loggedIn &&
                             <Typography
                                 component="h1"
                                 variant="h6"
                                 color="inherit"
                                 noWrap
-                                className={classes.roomName}
+                                className={classes.title}
                             >
-                               Your Group Name: {room_name}
+                                {room_name}
                             </Typography>
                         }
+
+                        {/*{loggedIn &&*/}
+                            {/*<Typography*/}
+                                {/*component="h1"*/}
+                                {/*variant="h6"*/}
+                                {/*color="inherit"*/}
+                                {/*noWrap*/}
+                                {/*className={classes.roomName}*/}
+                            {/*>*/}
+                               {/*Your Group Name: {room_name}*/}
+                            {/*</Typography>*/}
+                        {/*}*/}
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -276,8 +278,12 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
+                    <h1>ENCORE</h1>
                     <Divider />
                     <List>
+                        {/*<ListItem>*/}
+                            {/*<ListItemText primary="ENCORE"/>*/}
+                        {/*</ListItem>*/}
                         {loggedIn &&
                             <ListItem button onClick={this.handleLeave}>
                                 <ListItemIcon>

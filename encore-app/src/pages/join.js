@@ -7,6 +7,8 @@ import Button from "@material-ui/core/es/Button/Button";
 import Queue from './queue'
 import {withStyles} from "@material-ui/core/styles/index";
 import TextField from "@material-ui/core/es/TextField/TextField";
+import {extra_light_blue, THEME} from "../encore-theme";
+import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 
 const styles = theme => ({
     container: {
@@ -17,6 +19,7 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
+        color: extra_light_blue,
     },
     dense: {
         marginTop: 19,
@@ -81,6 +84,8 @@ class Join extends Component {
 
     render() {
 
+        const { classes } = this.props;
+
         if (this.state.showQueue){
             return (
                 <Queue
@@ -90,32 +95,35 @@ class Join extends Component {
         }
         else{
             return (
-                <div className="join-page">
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Grid item xs={12}>
-                            <h2>Join your room!</h2>
+                <MuiThemeProvider theme={THEME}>
+                    <div className="join-page">
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Grid item xs={12}>
+                                <h2>Join your room!</h2>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    id="standard-textarea"
+                                    label="Room ID"
+                                    placeholder="Enter Room ID"
+                                    multiline
+                                    className={classes.textField}
+                                    margin="normal"
+                                    onChange={this.handleChange}
+                                    varient="filled"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="standard-textarea"
-                                label="Room ID"
-                                placeholder="Enter Room ID"
-                                multiline
-                                className="textField"
-                                margin="normal"
-                                onChange={this.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
+                </MuiThemeProvider>
             )
         }
 
