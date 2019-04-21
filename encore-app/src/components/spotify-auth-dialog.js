@@ -6,27 +6,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {THEME, blue} from "../encore-theme";
-import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
-import {withStyles} from "@material-ui/core/styles/index";
 
 const axios = require('axios');
 
 
-const styles = theme => ({
-    songTxt: {
-        color: blue,
-    },
-    // fab: {
-    //     margin: theme.spacing.unit,
-    //     bottom: 0,
-    //     right: 0,
-    //     position: 'absolute',
-    //     color: extra_light_pink,
-    // },
-});
-
-class AddSongDialog extends Component {
+class SpotifyDialog extends Component {
 
     constructor(props) {
         super(props)
@@ -43,10 +27,10 @@ class AddSongDialog extends Component {
     // onChange={this.handleChange('name')}
 
     makeSongId(songName){
-       let songId = songName;
-       songId = songId.trim().toLowerCase();
-       songId = songId.replace(/\s+/g, '');
-       return songId;
+        let songId = songName;
+        songId = songId.trim().toLowerCase();
+        songId = songId.replace(/\s+/g, '');
+        return songId;
     }
 
     handleChange = (event) => {
@@ -88,10 +72,8 @@ class AddSongDialog extends Component {
 
     render() {
 
-        const { classes } = this.props;
-
         return (
-            <MuiThemeProvider theme={THEME}>
+            <div>
                 <Dialog
                     open={this.props.isOpen}
                     onClose={this.handleClose}
@@ -103,29 +85,27 @@ class AddSongDialog extends Component {
                             Type the name of the song you would like to add to the queue!
                         </DialogContentText>
                         <TextField
-                            // className={classes.songTxt}
                             autoFocus
                             margin="dense"
                             id="name"
                             label="Song Title"
-                            // type="email"
+                            type="email"
                             onChange={this.handleChange}
                             fullWidth
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="secondary">
+                        <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color="secondary">
+                        <Button onClick={this.handleSubmit} color="primary">
                             Submit
                         </Button>
                     </DialogActions>
                 </Dialog>
-            </MuiThemeProvider>
+            </div>
         );
     }
 }
 
-export default withStyles(styles)(AddSongDialog);
-// export default AddSongDialog
+export default SpotifyDialog
