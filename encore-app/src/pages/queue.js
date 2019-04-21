@@ -10,7 +10,7 @@ import NowPlayingCard from '../components/now-playing';
 
 
 import img from '../assets/american-idiot.jpg'
-import {THEME} from "../encore-theme";
+import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
 const axios = require('axios');
@@ -23,68 +23,31 @@ const mockData = {
 
 
 const styles = theme => ({
+    queue: {
+        color: pink,
+    }
 
 });
 
 class Queue extends Component {
     constructor(props) {
         super(props)
-        this.state = [{
+        this.state = {
             data: null,
-            spotify_id: '',
-            title: '',
-            artist: '',
-            cover_art: '',
-            runtime: 0,
-            votes: 0
-        }]
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-        //this.getSongs = this.getSongs.bind(this)
-
+            currentSong: null,
+        }
+        this.getSongs = this.getSongs.bind(this)
+        this.getCurrentSong = this.getCurrentSong.bind(this)
+        this.handleVote = this.handleVote.bind(this)
     }
 
     componentDidMount(){
         this.getSongs();
-    }
-
-    handleChange(event) {
-        // this.setState({
-        //     [event.target.name]: event.target.value
-        // })
-    }
-
-    handleSubmit(event) {
-        // event.preventDefault()
-        // console.log('handleSubmit')
-        //
-        // axios
-        //     .post('/user/login', {
-        //         username: this.state.username,
-        //         password: this.state.password
-        //     })
-        //     .then(response => {
-        //         console.log('login response: ')
-        //         console.log(response)
-        //         if (response.status === 200) {
-        //             // update App.js state
-        //             this.props.updateUser({
-        //                 loggedIn: true,
-        //                 username: response.data.username
-        //             })
-        //             // update the state to redirect to home
-        //             this.setState({
-        //                 redirectTo: '/'
-        //             })
-        //         }
-        //     }).catch(error => {
-        //     console.log('login error: ')
-        //     console.log(error);
-        // })
+        // this.getCurrentSong();
     }
 
      getSongs() {
-        //GET call here should return json objects
+        //Get songs to be passed into the table - aka the songs that are in the queue
         axios.get('/songs/')
         .then(response => {
         if (response.data) {
@@ -94,7 +57,7 @@ class Queue extends Component {
             });
             this.setState({
                 data: sorted
-            });
+            }, () => this.getCurrentSong());
             return sorted;
         } else {
             console.log('Get Song: failed');
@@ -102,21 +65,46 @@ class Queue extends Component {
         })
     }
 
+    getCurrentSong() {
+        let currentSong = null;
+        //todo: use spotify API to get the current song playing - then assign it to the currentSong variable to pass into the media card
+
+        if (this.state.data){
+            currentSong = this.state.data[0]; //placeholder for now, just return the first object in the list
+        }
+
+        this.setState({
+            currentSong: currentSong
+        })
+    }
+
+    handleVote = (songObj, isUpvote) => {
+        //takes in entire song object and handles whether it should be an upvote or downvote
+
+        if (isUpvote){
+            //todo post up vote to DB
+            console.log("up vote")
+            console.log(songObj)
+        }
+        else{
+            //todo post down vote to DB
+            console.log("down vote")
+            console.log(songObj)
+        }
+
+    }
+
     render() {
 
-        const imgURL = "https://i.scdn.co/image/8ba203299bc344a499cc60f9781773512eaa2648";
-        const title = "place holder";
-        const artist = "someone";
-
-
+        const { classes } = this.props;
 
         //prop if user is hosting session or joining session
         const hosting = this.props;
 
         const data = this.state.data;
-        console.log(this.state.data);
+        const currentSong = this.state.currentSong
 
-        if (this.state.data === null){
+        if (this.state.data === null || this.state.currentSong === null){
             return(
                 <div>
                     <p>loading</p>
@@ -133,27 +121,20 @@ class Queue extends Component {
                         alignItems="center"
                     >
                         <Grid item xs={12}>
-                            <h2>Host Page!</h2>
+                            <h2 className={classes.queue}>Queue</h2>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <NowPlayingCard
-                                imgUrl={imgURL}
-                                title={title}
-                                artist={artist}
+                                imgUrl={currentSong.cover_art}
+                                title={currentSong.title}
+                                artist={currentSong.artist}
                             />
-                            {/*<h2>Currently Playing</h2>*/}
-
-                            {/*<MediaControlCard*/}
-                                {/*title={mockData.songTitle}*/}
-                                {/*artist={mockData.artist}*/}
-                                {/*img={mockData.image}*/}
-                                {/*descr={mockData.imgDescr}*/}
-                            {/*/>*/}
                         </Grid>
                         <Grid item xs={12} sm={8}>
                             <SimpleTable
                                 isHost={hosting}
                                 fetchedData={data}
+                                handleVote={this.handleVote}
                             />
                         </Grid>
                     </Grid>

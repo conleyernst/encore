@@ -34,10 +34,10 @@ import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
-import {blue, dark_blue, pink} from '../encore-theme'
+import {blue, dark_blue, pink, purple} from '../encore-theme'
 
-const topbarColor = blue;
-const topbarText = dark_blue;
+const topbarColor = dark_blue;
+const topbarText = blue;
 
 const drawerWidth = 240;
 
@@ -80,12 +80,14 @@ const styles = theme => ({
     },
     title: {
         flexGrow: 1,
-        color: topbarText,
+        color: pink,
         fontFamily: "Bowlby One SC",
     },
     roomName: {
         flexGrow: 1,
         textAlignLast: 'end',
+        color: topbarText,
+        fontFamily: "Bowlby One SC",
     },
     drawerPaper: {
         position: 'relative',
@@ -141,7 +143,7 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
     state = {
-        open: true,
+        open: false,
         processing: false,
         modalIsOpen: false,
     };
@@ -254,13 +256,23 @@ class Dashboard extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
+                        <Typography
+                            component="h1"
+                            variant="h4"
+                            color="inherit"
+                            noWrap
+                            className={classes.title}
+                        >
+                            Encore
+                        </Typography>
+
                         {loggedIn &&
                             <Typography
                                 component="h1"
                                 variant="h6"
                                 color="inherit"
                                 noWrap
-                                className={classes.title}
+                                className={classes.roomName}
                             >
                                 {room_name}
                             </Typography>
@@ -294,14 +306,14 @@ class Dashboard extends React.Component {
                     {/*<h1>ENCORE</h1>*/}
                     {/*<Divider />*/}
                     <List>
-                        <ListItem>
-                            <ListItemIcon>
-                                <Brightness1 />
-                            </ListItemIcon>
-                            <ListItemText>
-                                <h1 className={classes.encoreBrand}>Encore</h1>
-                            </ListItemText>
-                        </ListItem>
+                        {/*<ListItem>*/}
+                            {/*<ListItemIcon>*/}
+                                {/*<Brightness1 />*/}
+                            {/*</ListItemIcon>*/}
+                            {/*<ListItemText>*/}
+                                {/*<h1 className={classes.encoreBrand}>Encore</h1>*/}
+                            {/*</ListItemText>*/}
+                        {/*</ListItem>*/}
                         <Divider />
                         {/*<ListItem>*/}
                             {/*<ListItemText primary="ENCORE"/>*/}

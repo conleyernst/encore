@@ -21,9 +21,9 @@ import Button from "@material-ui/core/es/Button/Button";
 const styles = theme => ({
     card: {
         maxWidth: 345,
+        alignItems: 'center',
     },
     media: {
-        // ⚠️ object-fit is not supported by IE 11.
         objectFit: 'contain',
     },
 });
@@ -49,13 +49,13 @@ class NowPlayingCard extends React.Component {
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Currently Playing
+                        <Typography align="left" gutterBottom variant="h6" component="h2">
+                            Now Playing
                         </Typography>
                         <Typography gutterBottom variant="h5" component="h2">
                             {title}
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h6" component="h2">
                             {artist}
                         </Typography>
                         {/*<Typography component="p">*/}

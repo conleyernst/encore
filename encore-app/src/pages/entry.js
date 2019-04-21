@@ -17,8 +17,21 @@ const styles = theme => ({
         color: extra_light_pink
     },
     entryH1: {
-        color: pink
+        color: pink,
+        fontFamily: "Bowlby One SC",
+        fontSize: 40,
     },
+    entry: {
+        width: 500,
+        height: 400,
+        // backgroundColor: pink,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 70, //todo debug offset
+        right: 0,
+        margin: 'auto',
+    }
 });
 
 //todo figure out how to export this better
@@ -85,7 +98,8 @@ class Entry extends Component {
         const { classes } = this.props;
             return (
                 <MuiThemeProvider theme={THEME}>
-                <div className="entry-page">
+                    {/*<div className={classes.entry}></div>*/}
+                <div className={classes.entry}>
                     <Grid
                         container
                         direction="row"
