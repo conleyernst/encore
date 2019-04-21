@@ -5,21 +5,75 @@ import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
+import {extra_light_blue, pink, THEME} from "../encore-theme";
+import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
+import {withStyles} from "@material-ui/core/styles/index";
+
+const adj = [
+    'happy',
+    'funky',
+    'crazy',
+    'cool',
+    'content',
+    'pleased',
+    'cheerful',
+    'jovial',
+    'jolly',
+    'glad',
+    'thrilled',
+    'elated',
+    'gleeful',
+    'sunny'
+];
+
+const nouns = [
+    'apple',
+    'cat',
+    'dance',
+    'speakers'
+];
+
+
+const styles = theme => ({
+    hostText: {
+        color: pink,
+    },
+});
 
 class Host extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showQueue: false
+            showQueue: false,
+            roomId: '',
         };
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.generateRoomId = this.generateRoomId.bind(this)
+    }
+
+    componentDidMount(){
+        const str = this.generateRoomId();
+        this.setState({
+            roomId: str
+        });
+    }
+
+    generateRoomId(){
+        const min = 0;
+        const maxOne = adj.length;
+        const maxTwo = nouns.length;
+        const indexOne = min + Math.floor(Math.random() * (maxOne - min));
+        const indexTwo = min + Math.floor(Math.random() * (maxTwo - min));
+
+        return adj[indexOne] + "-" + nouns[indexTwo];
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
+        // host=true, joined=false, room_name=roomId
+        this.props.handleEntry(true, false, this.state.roomId);
         this.props.updateProcessing(false);
-
         //todo search and check for the room here, if found render the queue
         this.setState({
             showQueue: true
@@ -28,6 +82,11 @@ class Host extends Component {
     }
 
     render() {
+
+        const { classes } = this.props;
+
+        // todo create function to add a room to the database
+        const roomId = this.state.roomId;
 
         if (this.state.showQueue){
             return (
@@ -38,27 +97,28 @@ class Host extends Component {
         }
         else{
             return (
-                <div className="join-page">
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Grid item xs={12}>
-                            <h2>Enter your code...</h2>
+                <MuiThemeProvider theme={THEME}>
+                    <div className="join-page">
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Grid item xs={12}>
+                                <h2 className={classes.hostText}>Enter your code...</h2>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <p className={classes.hostText} >Your code is '{roomId}'</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <p>Your code is 'happy-apple'</p>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
+                </MuiThemeProvider>
             )
         }
     }
 }
-
-export default Host
+export default withStyles(styles)(Host)

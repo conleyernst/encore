@@ -30,6 +30,15 @@ import ListItem from "@material-ui/core/es/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
+import BottomAppBar from '../components/bottom-appbar';
+import FloatingActionButtons from '../components/float-button';
+import AddSongDialog from "../components/add-song-dialog";
+
+import {blue, dark_blue} from '../encore-theme'
+
+const topbarColor = dark_blue;
+const topbarText = blue;
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -52,6 +61,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+        backgroundColor: topbarColor,
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -70,6 +80,7 @@ const styles = theme => ({
     },
     title: {
         flexGrow: 1,
+        color: topbarText,
     },
     roomName: {
         flexGrow: 1,
@@ -83,6 +94,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        backgroundColor: blue,
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -126,6 +138,7 @@ class Dashboard extends React.Component {
     state = {
         open: true,
         processing: false,
+        modalIsOpen: false,
     };
 
     handleDrawerOpen = () => {
@@ -145,28 +158,18 @@ class Dashboard extends React.Component {
         })
     }
 
-    // handleEntry = () => {
-    //     this.updateStates(false, true, 'cool')
-    // }
+    updateModalState = (modalObj) => {
+        this.setState(modalObj)
+    }
 
     handleEntry = (host, joined, room_string) => {
         this.updateProcessing(true)
         this.updateStates(host, joined, room_string);
-        // this.setState({
-        //     processing: true,
-        // }, () => this.updateStates(host, joined, room_string));
-        // this.updateStates(host, joined, room_string)
     }
 
     updateProcessing = (bool) => {
         this.setState({ processing: bool });
     }
-
-    // toggleProcessing = () => {
-    //     this.setState(({
-    //         processing: !this.state.processing
-    //     }))
-    // }
 
     handleLeave = () => {
         this.updateStates(false, false, '')
@@ -183,6 +186,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Host
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
@@ -194,6 +198,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Join
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
@@ -216,12 +221,7 @@ class Dashboard extends React.Component {
 
 
         const { classes } = this.props;
-        // const { room_name } = this.props;props
         const { host, joined, room_name} = this.props;
-        //
-        // if ((host === false) && (joined === false)){
-        //     loggedIn = false;
-        // }
 
         let loggedIn = false;
         if (!this.state.processing){
@@ -229,9 +229,6 @@ class Dashboard extends React.Component {
                 loggedIn = true;
             }
         }
-        // if (host || joined){
-        //     loggedIn = true;
-        // }
 
         return (
             <div className={classes.root}>
@@ -252,27 +249,29 @@ class Dashboard extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Dashboard
-                        </Typography>
-
                         {loggedIn &&
                             <Typography
                                 component="h1"
                                 variant="h6"
                                 color="inherit"
                                 noWrap
-                                className={classes.roomName}
+                                className={classes.title}
                             >
-                               Your Group Name: {room_name}
+                                {room_name}
                             </Typography>
                         }
+
+                        {/*{loggedIn &&*/}
+                            {/*<Typography*/}
+                                {/*component="h1"*/}
+                                {/*variant="h6"*/}
+                                {/*color="inherit"*/}
+                                {/*noWrap*/}
+                                {/*className={classes.roomName}*/}
+                            {/*>*/}
+                               {/*Your Group Name: {room_name}*/}
+                            {/*</Typography>*/}
+                        {/*}*/}
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -287,8 +286,12 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
+                    <h1>ENCORE</h1>
                     <Divider />
                     <List>
+                        {/*<ListItem>*/}
+                            {/*<ListItemText primary="ENCORE"/>*/}
+                        {/*</ListItem>*/}
                         {loggedIn &&
                             <ListItem button onClick={this.handleLeave}>
                                 <ListItemIcon>
@@ -311,83 +314,23 @@ class Dashboard extends React.Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    {/*<List>{secondaryListItems}</List>*/}
                 </Drawer>
 
+                <AddSongDialog
+                    isOpen={this.state.modalIsOpen}
+                    updateModalState={this.updateModalState}
+                />
 
                 <main className={classes.content}>
                     {this.pageContent()}
-                    {/*{!loggedIn &&*/}
-                        {/*<div className={classes.appBarSpacer}>*/}
-                            {/*<Typography>*/}
-                                {/*<Entry*/}
-                                    {/*handleEntry={this.handleEntry}*/}
-                                {/*/>*/}
-                            {/*</Typography>*/}
-                        {/*</div>*/}
-                    {/*}*/}
-                    {/*{loggedIn &&*/}
-                    {/*<div className={classes.appBarSpacer}>*/}
-                        {/*<Typography>*/}
-                           {/*<p>hello</p>*/}
-                        {/*</Typography>*/}
-                    {/*</div>*/}
-                    {/*}*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                    {/*Orders*/}
-                    {/*</Typography>*/}
-                    {/*<Entry />*/}
-                    {/*{loggedIn &&*/}
-                        {/*<div>*/}
-                            {/*<Entry />*/}
-                        {/*</div>*/}
-                    {/*}*/}
-
-
-                    {/*<div className={classes.appBarSpacer} />*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                        {/*Orders*/}
-                    {/*</Typography>*/}
-                    {/*<Typography variant="h4" gutterBottom component="h2">*/}
-                        {/*Products*/}
-                    {/*</Typography>*/}
-                    {/*<div className={classes.tableContainer}>*/}
-                        {/*<SimpleTable />*/}
-                    {/*</div>*/}
                 </main>
 
-                <AppBar position="fixed" color="primary" className={classes.bottomBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classes.searchBar}
-                            // className={classNames(
-                            //     classes.menuButton,
-                            //     this.state.open && classes.menuButtonHidden,
-                            // )}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        {/*<IconButton color="inherit" aria-label="Open drawer">*/}
-                            {/*<MenuIcon />*/}
-                        {/*</IconButton>*/}
-                        {/*<Fab color="secondary" aria-label="Add" onClick={handleClick()} className={classes.fabButton}>*/}
-                            {/*<AddIcon />*/}
-                        {/*</Fab>*/}
-                        {/*<div>*/}
-                            {/*<IconButton color="inherit">*/}
-                                {/*<SearchIcon />*/}
-                            {/*</IconButton>*/}
-                            {/*/!*<IconButton color="inherit">*!/*/}
-                                {/*/!*<MoreIcon />*!/*/}
-                            {/*/!*</IconButton>*!/*/}
-                        {/*</div>*/}
-                    </Toolbar>
-                </AppBar>
-
-
+                <FloatingActionButtons
+                    updateModalState={this.updateModalState}
+                />
+                {/*<BottomAppBar*/}
+                    {/*updateModalState={this.updateModalState}*/}
+                {/*/>*/}
             </div>
         );
     }
