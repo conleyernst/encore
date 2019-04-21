@@ -71,7 +71,7 @@ class AddSongDialog extends Component {
         const songName = this.state.song;
         const songId = this.makeSongId(songName);
 
-        //todo perform fetching logic here to get spotify object
+        //todo perform fetching logic here to get spotify object, save spotify id as songID
 
         const songObject = {
             spotify_id: songId,

@@ -48,6 +48,9 @@ function MediaControlCard(props) {
         <Card className={classes.card}>
             <div className={classes.details}>
                 <CardContent className={classes.content}>
+                    <Typography component="h4" variant="h4">
+                        Now Playing
+                    </Typography>
                     <Typography component="h5" variant="h5">
                         {title}
                     </Typography>

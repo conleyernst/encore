@@ -19,127 +19,185 @@ const styles = {
     },
     table: {
         minWidth: 700,
+        padding: 10,
     },
+    voteBtn: {
+        margin: 10,
+    },
+    songContainer: {
+        display: 'block',
+    },
+    songTitle: {
+        fontSize: 20,
+        marginBottom: 5,
+    },
+    songArtist: {
+        fontSize: 15,
+    },
+    songVotes: {
+        fontSize: 20,
+    },
+
 };
 
-let id = 0;
-function createData(title, artist, score) {
-    id += 1;
-    return { id, title, artist, score };
-}
+class SimpleTable extends React.Component {
+    constructor(props){
+        super(props);
 
-// const data = [
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
-const mockData = [
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-]
-
-function SimpleTable(props) {
-    const { classes } = props;
+        this.handleDownVote = this.handleDownVote.bind(this)
+        this.handleUpVote = this.handleUpVote.bind(this)
+    }
 
 
-    // // let data = [];
-    // for (let i = 0; i < mockData.length; i++){
-    //     const element = mockData[i];
-    //     const obj = createData(element.title, element.artist, element.score);
-    //     data.push(obj);
-    // }
+    handleDownVote(songObj){
+        this.props.handleVote(songObj, false)
+        // this.props.handleVote(id)
+    }
 
-    let data = [];
-
-    //todo have this as a prop passed in
-    const { isHost, fetchedData } = props;
-
-    data = fetchedData;
-
-    const host = isHost.isHost //shitty debug but hey at least it works
+    handleUpVote(songObj){
+        this.props.handleVote(songObj, true)
+    }
 
 
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="right">Title</TableCell>
-                        <TableCell align="right">Artist</TableCell>
-                        <TableCell align="right">Score</TableCell>
-                        {!host &&
-                            <TableCell align="right">Vote</TableCell>
-                        }
-                        {host &&
-                            <TableCell align="right">Veto</TableCell>
-                        }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data && data.map(n => (
-                        <TableRow key={n._id}>
-                            <TableCell component="th" scope="row">
-                                {n.title}
-                            </TableCell>
-                            {/*<TableCell align="right">{n.title}</TableCell>*/}
-                            <TableCell align="right">{n.artist}</TableCell>
-                            <TableCell align="right">{n.score}</TableCell>
+    render() {
+
+        const { classes } = this.props;
+
+        let data = [];
+
+        //todo have this as a prop passed in
+        const { isHost, fetchedData, handleVote } = this.props;
+
+        data = fetchedData;
+
+        const host = isHost.isHost //shitty debug but hey at least it works
+
+        return(
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center">Song</TableCell>
+                            {/*<TableCell align="center">Artist</TableCell>*/}
+                            <TableCell align="center">Score</TableCell>
                             {!host &&
-                                <TableCell align="right">
-                                    <Button variant="contained" color="primary">
+                            <TableCell align="center">Vote</TableCell>
+                            }
+                            {host &&
+                            <TableCell align="center">Veto</TableCell>
+                            }
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data && data.map(n => (
+                            <TableRow key={n._id}>
+                                <TableCell align="left" component="th" scope="row">
+                                    <div className={classes.songContainer}>
+                                        <div className={classes.songTitle}>
+                                            {n.title}
+                                        </div>
+                                        <div className={classes.songArtist}>
+                                            {n.artist}
+                                        </div>
+                                    </div>
+                                </TableCell>
+                                {/*<TableCell align="right">{n.title}</TableCell>*/}
+                                {/*<TableCell align="center">{n.artist}</TableCell>*/}
+                                <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
+                                {!host &&
+                                <TableCell align="center">
+                                    <Button onClick={() => this.handleUpVote(n)} className={classes.voteBtn} variant="contained" color="primary">
                                         <ThumbUp />
                                     </Button>
-                                    <Button variant="contained" color="primary">
+                                    <Button onClick={() => this.handleDownVote(n)} className={classes.voteBtn} variant="contained" color="primary">
                                         <ThumbDown/>
                                     </Button>
                                 </TableCell>
-                            }
-                            {host &&
-                                <TableCell align="right">
+                                }
+                                {host &&
+                                <TableCell align="center">
                                     <Button variant="contained" color="primary">Veto</Button>
                                 </TableCell>
-                            }
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
+                                }
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
+        )
+    }
 }
 
-SimpleTable.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+// function SimpleTable(props) {
+//     const { classes } = props;
+//
+//     let data = [];
+//
+//     //todo have this as a prop passed in
+//     const { isHost, fetchedData, handleVote } = props;
+//
+//     data = fetchedData;
+//
+//     const host = isHost.isHost //shitty debug but hey at least it works
+//
+//
+//     return (
+//         <Paper className={classes.root}>
+//             <Table className={classes.table}>
+//                 <TableHead>
+//                     <TableRow>
+//                         <TableCell align="center">Song</TableCell>
+//                         {/*<TableCell align="center">Artist</TableCell>*/}
+//                         <TableCell align="center">Score</TableCell>
+//                         {!host &&
+//                             <TableCell align="center">Vote</TableCell>
+//                         }
+//                         {host &&
+//                             <TableCell align="center">Veto</TableCell>
+//                         }
+//                     </TableRow>
+//                 </TableHead>
+//                 <TableBody>
+//                     {data && data.map(n => (
+//                         <TableRow key={n._id}>
+//                             <TableCell align="left" component="th" scope="row">
+//                                 <div className={classes.songContainer}>
+//                                     <div className={classes.songTitle}>
+//                                         {n.title}
+//                                     </div>
+//                                     <div className={classes.songArtist}>
+//                                         {n.artist}
+//                                     </div>
+//                                 </div>
+//                             </TableCell>
+//                             {/*<TableCell align="right">{n.title}</TableCell>*/}
+//                             {/*<TableCell align="center">{n.artist}</TableCell>*/}
+//                             <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
+//                             {!host &&
+//                                 <TableCell align="center">
+//                                     <Button onClick{handleVote(n._id)} className={classes.voteBtn} variant="contained" color="primary">
+//                                         <ThumbUp />
+//                                     </Button>
+//                                     <Button className={classes.voteBtn} variant="contained" color="primary">
+//                                         <ThumbDown/>
+//                                     </Button>
+//                                 </TableCell>
+//                             }
+//                             {host &&
+//                                 <TableCell align="center">
+//                                     <Button variant="contained" color="primary">Veto</Button>
+//                                 </TableCell>
+//                             }
+//                         </TableRow>
+//                     ))}
+//                 </TableBody>
+//             </Table>
+//         </Paper>
+//     );
+// }
+//
+// SimpleTable.propTypes = {
+//     classes: PropTypes.object.isRequired,
+// };
 
 export default withStyles(styles)(SimpleTable);
