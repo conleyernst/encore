@@ -8,6 +8,8 @@ import MediaControlCard from '../components/media-control-card';
 
 
 import img from '../assets/american-idiot.jpg'
+import {THEME} from "../encore-theme";
+import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 const axios = require('axios');
 const mockData = {
     songTitle: 'Holiday',
@@ -20,6 +22,7 @@ class Queue extends Component {
     constructor(props) {
         super(props)
         this.state = [{
+            data: null,
             spotify_id: '',
             title: '',
             artist: '',
@@ -93,37 +96,50 @@ class Queue extends Component {
 
     render() {
 
+
         //prop if user is hosting session or joining session
         const hosting = this.props;
 
-        console.log(this.state.data);
+        const data = this.state.data;
+        // console.log(this.state.data);
+
+        if (this.state.data === null){
+            return(
+                <div>
+                    <p>loading</p>
+                </div>
+            )
+        }
         return (
-            <div className="host-queue">
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Grid item xs={12}>
-                        <h2>Host Page!</h2>
+            <MuiThemeProvider theme={THEME}>
+                <div className="host-queue">
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
+                            <h2>Host Page!</h2>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <h2>Currently Playing</h2>
+                            <MediaControlCard
+                                title={mockData.songTitle}
+                                artist={mockData.artist}
+                                img={mockData.image}
+                                descr={mockData.imgDescr}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
+                            <SimpleTable
+                                isHost={hosting}
+                                fetchedData={data}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-                        <h2>Currently Playing</h2>
-                        <MediaControlCard
-                            title={mockData.songTitle}
-                            artist={mockData.artist}
-                            img={mockData.image}
-                            descr={mockData.imgDescr}
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <SimpleTable
-                            isHost={hosting}
-                        />
-                    </Grid>
-                </Grid>
-            </div>
+                </div>
+            </MuiThemeProvider>
         )
     }
 }

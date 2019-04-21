@@ -10,16 +10,16 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
+// import NotInterested from '@material-ui/core/NotInterested';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import LayersIcon from '@material-ui/icons/Layers';
+import Help from '@material-ui/icons/Help';
+import NotInterested from '@material-ui/icons/NotInterested';
 import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
+import Brightness1 from '@material-ui/icons/Brightness1';
 
 
 import Entry from './entry'
@@ -34,10 +34,10 @@ import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
-import {blue, dark_blue} from '../encore-theme'
+import {blue, dark_blue, pink} from '../encore-theme'
 
-const topbarColor = dark_blue;
-const topbarText = blue;
+const topbarColor = blue;
+const topbarText = dark_blue;
 
 const drawerWidth = 240;
 
@@ -81,6 +81,7 @@ const styles = theme => ({
     title: {
         flexGrow: 1,
         color: topbarText,
+        fontFamily: "Bowlby One SC",
     },
     roomName: {
         flexGrow: 1,
@@ -131,6 +132,10 @@ const styles = theme => ({
     searchBar: {
         flexGrow: 1,
         textAlignLast: 'end',
+    },
+    encoreBrand: {
+        fontFamily: "Bowlby One SC",
+        color: dark_blue,
     },
 });
 
@@ -286,34 +291,42 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
-                    <h1>ENCORE</h1>
-                    <Divider />
+                    {/*<h1>ENCORE</h1>*/}
+                    {/*<Divider />*/}
                     <List>
+                        <ListItem>
+                            <ListItemIcon>
+                                <Brightness1 />
+                            </ListItemIcon>
+                            <ListItemText>
+                                <h1 className={classes.encoreBrand}>Encore</h1>
+                            </ListItemText>
+                        </ListItem>
+                        <Divider />
                         {/*<ListItem>*/}
                             {/*<ListItemText primary="ENCORE"/>*/}
                         {/*</ListItem>*/}
                         {loggedIn &&
                             <ListItem button onClick={this.handleLeave}>
                                 <ListItemIcon>
-                                    <LayersIcon/>
+                                    <NotInterested />
                                 </ListItemIcon>
-                                <ListItemText primary="Leave Group"/>
+                                <ListItemText className={classes.test} primary="Leave Group"/>
                             </ListItem>
                         }
+                        {/*<ListItem button>*/}
+                            {/*<ListItemIcon>*/}
+                                {/*<DashboardIcon />*/}
+                            {/*</ListItemIcon>*/}
+                            {/*<ListItemText primary="Home" />*/}
+                        {/*</ListItem>*/}
                         <ListItem button>
                             <ListItemIcon>
-                                <DashboardIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Home" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <LayersIcon />
+                                <Help />
                             </ListItemIcon>
                             <ListItemText primary="About" />
                         </ListItem>
                     </List>
-                    <Divider />
                 </Drawer>
 
                 <AddSongDialog

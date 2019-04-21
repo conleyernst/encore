@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
-import {extra_light_blue, pink, THEME} from "../encore-theme";
+import {extra_light_blue, extra_light_pink, pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
 
@@ -37,6 +37,12 @@ const nouns = [
 const styles = theme => ({
     hostText: {
         color: pink,
+        margin: 20,
+    },
+    hostBtn: {
+        margin: 20,
+        // color: theme.palette.primary,
+        color: extra_light_pink
     },
 });
 
@@ -106,13 +112,13 @@ class Host extends Component {
                             alignItems="center"
                         >
                             <Grid item xs={12}>
-                                <h2 className={classes.hostText}>Enter your code...</h2>
+                                <h1 className={classes.hostText}>Enter your code...</h1>
                             </Grid>
-                            <Grid item xs={6}>
-                                <p className={classes.hostText} >Your code is '{roomId}'</p>
+                            <Grid item xs={12}>
+                                <h2 className={classes.hostText} >Your code is '{roomId}'</h2>
                             </Grid>
-                            <Grid item xs={6}>
-                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
+                            <Grid item xs={12}>
+                                <Button className={classes.hostBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
                             </Grid>
                         </Grid>
                     </div>
