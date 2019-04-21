@@ -6,10 +6,13 @@ import Button from "@material-ui/core/es/Button/Button";
 import SimpleTable from '../components/simple-table';
 import MediaControlCard from '../components/media-control-card';
 
+import NowPlayingCard from '../components/now-playing';
+
 
 import img from '../assets/american-idiot.jpg'
 import {THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
+import {withStyles} from "@material-ui/core/styles/index";
 const axios = require('axios');
 const mockData = {
     songTitle: 'Holiday',
@@ -17,6 +20,11 @@ const mockData = {
     image: img,
     imgDescr: 'Album cover for American Idiot'
 };
+
+
+const styles = theme => ({
+
+});
 
 class Queue extends Component {
     constructor(props) {
@@ -96,12 +104,17 @@ class Queue extends Component {
 
     render() {
 
+        const imgURL = "https://i.scdn.co/image/8ba203299bc344a499cc60f9781773512eaa2648";
+        const title = "place holder";
+        const artist = "someone";
+
+
 
         //prop if user is hosting session or joining session
         const hosting = this.props;
 
         const data = this.state.data;
-        // console.log(this.state.data);
+        console.log(this.state.data);
 
         if (this.state.data === null){
             return(
@@ -123,13 +136,19 @@ class Queue extends Component {
                             <h2>Host Page!</h2>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <h2>Currently Playing</h2>
-                            <MediaControlCard
-                                title={mockData.songTitle}
-                                artist={mockData.artist}
-                                img={mockData.image}
-                                descr={mockData.imgDescr}
+                            <NowPlayingCard
+                                imgUrl={imgURL}
+                                title={title}
+                                artist={artist}
                             />
+                            {/*<h2>Currently Playing</h2>*/}
+
+                            {/*<MediaControlCard*/}
+                                {/*title={mockData.songTitle}*/}
+                                {/*artist={mockData.artist}*/}
+                                {/*img={mockData.image}*/}
+                                {/*descr={mockData.imgDescr}*/}
+                            {/*/>*/}
                         </Grid>
                         <Grid item xs={12} sm={8}>
                             <SimpleTable
@@ -144,4 +163,5 @@ class Queue extends Component {
     }
 }
 
-export default Queue
+
+export default withStyles(styles)(Queue);

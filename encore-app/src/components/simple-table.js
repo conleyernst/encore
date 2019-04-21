@@ -24,6 +24,20 @@ const styles = {
     voteBtn: {
         margin: 10,
     },
+    songContainer: {
+        display: 'block',
+    },
+    songTitle: {
+        fontSize: 20,
+        marginBottom: 5,
+    },
+    songArtist: {
+        fontSize: 15,
+    },
+    songVotes: {
+        fontSize: 20,
+    },
+
 };
 
 function SimpleTable(props) {
@@ -44,8 +58,8 @@ function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">Title</TableCell>
-                        <TableCell align="center">Artist</TableCell>
+                        <TableCell align="center">Song</TableCell>
+                        {/*<TableCell align="center">Artist</TableCell>*/}
                         <TableCell align="center">Score</TableCell>
                         {!host &&
                             <TableCell align="center">Vote</TableCell>
@@ -59,11 +73,18 @@ function SimpleTable(props) {
                     {data && data.map(n => (
                         <TableRow key={n._id}>
                             <TableCell align="left" component="th" scope="row">
-                                {n.title}
+                                <div className={classes.songContainer}>
+                                    <div className={classes.songTitle}>
+                                        {n.title}
+                                    </div>
+                                    <div className={classes.songArtist}>
+                                        {n.artist}
+                                    </div>
+                                </div>
                             </TableCell>
                             {/*<TableCell align="right">{n.title}</TableCell>*/}
-                            <TableCell align="center">{n.artist}</TableCell>
-                            <TableCell align="center">{n.score}</TableCell>
+                            {/*<TableCell align="center">{n.artist}</TableCell>*/}
+                            <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
                             {!host &&
                                 <TableCell align="center">
                                     <Button className={classes.voteBtn} variant="contained" color="primary">
