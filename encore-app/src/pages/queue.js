@@ -20,8 +20,12 @@ class Queue extends Component {
     constructor(props) {
         super(props)
         this.state = [{
-            songid: '',
-            votes: ''
+            spotify_id: '',
+            title: '',
+            artist: '',
+            cover_art: '',
+            runtime: 0,
+            votes: 0
         }]
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)

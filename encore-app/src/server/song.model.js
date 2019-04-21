@@ -3,8 +3,20 @@ const Schema = mongoose.Schema;
 
 
 let Song = new Schema({
-	songid: {
+	spotify_id: {
 		type: String
+	},
+	title: {
+		type: String
+	},
+	artist: {
+		type: String
+	},
+	cover_art: {
+		type: String
+	},
+	runtime: {
+		type: Number
 	},
 	votes: {
 		type: Number

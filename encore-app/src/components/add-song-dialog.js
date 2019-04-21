@@ -58,7 +58,11 @@ class AddSongDialog extends Component {
         //todo perform fetching logic here to get spotify object
 
         const songObject = {
-            songid: songId,
+            spotify_id: songId,
+            title: '',
+            artist: '',
+            cover_art: '',
+            runtime: 0,
             votes: 0
         }
         axios.post('/songs/add', songObject)
