@@ -19,66 +19,15 @@ const styles = {
     },
     table: {
         minWidth: 700,
+        padding: 10,
+    },
+    voteBtn: {
+        margin: 10,
     },
 };
 
-let id = 0;
-function createData(title, artist, score) {
-    id += 1;
-    return { id, title, artist, score };
-}
-
-// const data = [
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
-const mockData = [
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-    {
-        title: 'American Idiot',
-        artist: 'Greenday',
-        score: 5
-    },
-]
-
 function SimpleTable(props) {
     const { classes } = props;
-
-
-    // // let data = [];
-    // for (let i = 0; i < mockData.length; i++){
-    //     const element = mockData[i];
-    //     const obj = createData(element.title, element.artist, element.score);
-    //     data.push(obj);
-    // }
 
     let data = [];
 
@@ -95,38 +44,38 @@ function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell align="right">Title</TableCell>
-                        <TableCell align="right">Artist</TableCell>
-                        <TableCell align="right">Score</TableCell>
+                        <TableCell align="center">Title</TableCell>
+                        <TableCell align="center">Artist</TableCell>
+                        <TableCell align="center">Score</TableCell>
                         {!host &&
-                            <TableCell align="right">Vote</TableCell>
+                            <TableCell align="center">Vote</TableCell>
                         }
                         {host &&
-                            <TableCell align="right">Veto</TableCell>
+                            <TableCell align="center">Veto</TableCell>
                         }
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {data && data.map(n => (
                         <TableRow key={n._id}>
-                            <TableCell component="th" scope="row">
+                            <TableCell align="left" component="th" scope="row">
                                 {n.title}
                             </TableCell>
                             {/*<TableCell align="right">{n.title}</TableCell>*/}
-                            <TableCell align="right">{n.artist}</TableCell>
-                            <TableCell align="right">{n.score}</TableCell>
+                            <TableCell align="center">{n.artist}</TableCell>
+                            <TableCell align="center">{n.score}</TableCell>
                             {!host &&
-                                <TableCell align="right">
-                                    <Button variant="contained" color="primary">
+                                <TableCell align="center">
+                                    <Button className={classes.voteBtn} variant="contained" color="primary">
                                         <ThumbUp />
                                     </Button>
-                                    <Button variant="contained" color="primary">
+                                    <Button className={classes.voteBtn} variant="contained" color="primary">
                                         <ThumbDown/>
                                     </Button>
                                 </TableCell>
                             }
                             {host &&
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <Button variant="contained" color="primary">Veto</Button>
                                 </TableCell>
                             }
