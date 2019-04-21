@@ -107,7 +107,7 @@ class Queue extends Component {
                         <Grid item xs={12}>
                             <h2>Host Page!</h2>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} sm={4}>
                             <h2>Currently Playing</h2>
                             <MediaControlCard
                                 title={mockData.songTitle}
@@ -116,7 +116,7 @@ class Queue extends Component {
                                 descr={mockData.imgDescr}
                             />
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={12} sm={8}>
                             <SimpleTable
                                 isHost={hosting}
                             />
