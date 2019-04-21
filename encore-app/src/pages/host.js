@@ -36,7 +36,6 @@ const nouns = [
 
 const styles = theme => ({
     hostText: {
-        fontFamily: "Bowlby One SC",
         color: pink,
         margin: 20,
     },

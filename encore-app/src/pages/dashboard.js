@@ -81,6 +81,7 @@ const styles = theme => ({
     title: {
         flexGrow: 1,
         color: topbarText,
+        fontFamily: "Bowlby One SC",
     },
     roomName: {
         flexGrow: 1,
@@ -131,6 +132,9 @@ const styles = theme => ({
     searchBar: {
         flexGrow: 1,
         textAlignLast: 'end',
+    },
+    encoreBrand: {
+        fontFamily: "Bowlby One SC",
     },
 });
 
@@ -286,9 +290,18 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
-                    <h1>ENCORE</h1>
-                    <Divider />
+                    {/*<h1>ENCORE</h1>*/}
+                    {/*<Divider />*/}
                     <List>
+                        <ListItem>
+                            <ListItemIcon>
+                                {/*<DashboardIcon />*/}
+                            </ListItemIcon>
+                            <ListItemText>
+                                <h1 className={classes.encoreBrand}>Encore</h1>
+                            </ListItemText>
+                        </ListItem>
+                        <Divider />
                         {/*<ListItem>*/}
                             {/*<ListItemText primary="ENCORE"/>*/}
                         {/*</ListItem>*/}
