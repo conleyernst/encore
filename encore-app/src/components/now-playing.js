@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import {extra_light_pink, THEME} from "../encore-theme";
+import {blue, extra_light_blue, extra_light_pink, pink, purple, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import Card from "@material-ui/core/es/Card/Card";
 import CardActionArea from "@material-ui/core/es/CardActionArea/CardActionArea";
@@ -25,6 +25,16 @@ const styles = theme => ({
     },
     media: {
         objectFit: 'contain',
+    },
+    nowPlaying: {
+        color: pink,
+        fontFamily: "Bowlby One SC",
+    },
+    songTitle:{
+        color: extra_light_blue
+    },
+    songArtist: {
+        color: extra_light_blue
     },
 });
 
@@ -49,13 +59,13 @@ class NowPlayingCard extends React.Component {
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <Typography align="left" gutterBottom variant="h6" component="h2">
+                        <Typography className={classes.nowPlaying} align="center" gutterBottom variant="h6" component="h2">
                             Now Playing
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.songTitle} align="left" gutterBottom variant="h5" component="h2">
                             {title}
                         </Typography>
-                        <Typography gutterBottom variant="h6" component="h2">
+                        <Typography className={classes.songArtist} align="left" gutterBottom variant="h6" component="h2">
                             {artist}
                         </Typography>
                         {/*<Typography component="p">*/}
