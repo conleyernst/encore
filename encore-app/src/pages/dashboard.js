@@ -34,6 +34,11 @@ import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
+import {blue, dark_blue} from '../encore-theme'
+
+const topbarColor = dark_blue;
+const topbarText = blue;
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -56,6 +61,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+        backgroundColor: topbarColor,
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -74,6 +80,7 @@ const styles = theme => ({
     },
     title: {
         flexGrow: 1,
+        color: topbarText,
     },
     roomName: {
         flexGrow: 1,
@@ -87,6 +94,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        backgroundColor: blue,
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -178,6 +186,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Host
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
@@ -189,6 +198,7 @@ class Dashboard extends React.Component {
                     <Typography>
                         <Join
                             updateProcessing={this.updateProcessing}
+                            handleEntry={this.handleEntry}
                         />
                     </Typography>
                 </div>
@@ -239,27 +249,29 @@ class Dashboard extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Dashboard
-                        </Typography>
-
                         {loggedIn &&
                             <Typography
                                 component="h1"
                                 variant="h6"
                                 color="inherit"
                                 noWrap
-                                className={classes.roomName}
+                                className={classes.title}
                             >
-                               Your Group Name: {room_name}
+                                {room_name}
                             </Typography>
                         }
+
+                        {/*{loggedIn &&*/}
+                            {/*<Typography*/}
+                                {/*component="h1"*/}
+                                {/*variant="h6"*/}
+                                {/*color="inherit"*/}
+                                {/*noWrap*/}
+                                {/*className={classes.roomName}*/}
+                            {/*>*/}
+                               {/*Your Group Name: {room_name}*/}
+                            {/*</Typography>*/}
+                        {/*}*/}
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -274,8 +286,12 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
+                    <h1>ENCORE</h1>
                     <Divider />
                     <List>
+                        {/*<ListItem>*/}
+                            {/*<ListItemText primary="ENCORE"/>*/}
+                        {/*</ListItem>*/}
                         {loggedIn &&
                             <ListItem button onClick={this.handleLeave}>
                                 <ListItemIcon>
