@@ -22,8 +22,7 @@ class Queue extends Component {
     constructor(props) {
         super(props)
         this.state = [{
-            songid: '',
-            votes: ''
+            data: null,
         }]
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -91,10 +90,20 @@ class Queue extends Component {
 
     render() {
 
+
         //prop if user is hosting session or joining session
         const hosting = this.props;
 
-        console.log(this.state.data);
+        const data = this.state.data;
+        // console.log(this.state.data);
+
+        if (this.state.data === null){
+            return(
+                <div>
+                    <p>loading</p>
+                </div>
+            )
+        }
         return (
             <MuiThemeProvider theme={THEME}>
                 <div className="host-queue">
@@ -119,6 +128,7 @@ class Queue extends Component {
                         <Grid item xs={12} sm={8}>
                             <SimpleTable
                                 isHost={hosting}
+                                fetchedData={data}
                             />
                         </Grid>
                     </Grid>

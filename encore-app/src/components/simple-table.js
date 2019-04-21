@@ -8,6 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/es/Button/Button";
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+
 
 const styles = {
     root: {
@@ -70,15 +73,19 @@ function SimpleTable(props) {
     const { classes } = props;
 
 
+    // // let data = [];
+    // for (let i = 0; i < mockData.length; i++){
+    //     const element = mockData[i];
+    //     const obj = createData(element.title, element.artist, element.score);
+    //     data.push(obj);
+    // }
+
     let data = [];
-    for (let i = 0; i < mockData.length; i++){
-        const element = mockData[i];
-        const obj = createData(element.title, element.artist, element.score);
-        data.push(obj);
-    }
 
     //todo have this as a prop passed in
-    const { isHost } = props;
+    const { isHost, fetchedData } = props;
+
+    data = fetchedData;
 
     const host = isHost.isHost //shitty debug but hey at least it works
 
@@ -100,8 +107,8 @@ function SimpleTable(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(n => (
-                        <TableRow key={n.id}>
+                    {data && data.map(n => (
+                        <TableRow key={n._id}>
                             <TableCell component="th" scope="row">
                                 {n.title}
                             </TableCell>
@@ -110,8 +117,12 @@ function SimpleTable(props) {
                             <TableCell align="right">{n.score}</TableCell>
                             {!host &&
                                 <TableCell align="right">
-                                    <Button variant="contained" color="primary">Yee</Button>
-                                    <Button variant="contained" color="primary">Nee</Button>
+                                    <Button variant="contained" color="primary">
+                                        <ThumbUp />
+                                    </Button>
+                                    <Button variant="contained" color="primary">
+                                        <ThumbDown/>
+                                    </Button>
                                 </TableCell>
                             }
                             {host &&
