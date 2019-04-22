@@ -143,11 +143,12 @@ class Join extends Component {
                                 <Button size="large" className={classes.joinBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
                             </Grid>
                         </Grid>
-                        <FadeSnackbar
-                            isOpen={this.state.isSnackOpen}
-                            updateSnackbarState={this.updateSnackbarState}
-                            text='Foo bar'
-                        />
+                        {/*//todo create snack bar for text validation*/}
+                        {/*<FadeSnackbar*/}
+                            {/*isOpen={this.state.isSnackOpen}*/}
+                            {/*updateSnackbarState={this.updateSnackbarState}*/}
+                            {/*text='Foo bar'*/}
+                        {/*/>*/}
                     </div>
                 </MuiThemeProvider>
             )
