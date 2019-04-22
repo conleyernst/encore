@@ -36,7 +36,7 @@ class App extends Component {
         console.log("TOKEN:" + this.state.token);
 
     return (
-      <div className="App">
+      <div className="App test">
           <Dashboard
               room_name={this.state.room_string}
               host={this.state.host}
