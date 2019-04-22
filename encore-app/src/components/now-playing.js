@@ -20,14 +20,16 @@ import Button from "@material-ui/core/es/Button/Button";
 
 const styles = theme => ({
     card: {
-        maxWidth: 345,
+        maxWidth: 300,
         alignItems: 'center',
     },
     media: {
-        objectFit: 'contain',
+        // height: 'auto',
+        objectFit: 'cover',
     },
     nowPlaying: {
         color: pink,
+        fontSize: 30,
         fontFamily: "Bowlby One SC",
     },
     songTitle:{

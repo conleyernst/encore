@@ -34,10 +34,10 @@ import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
-import {blue, dark_blue, pink, purple, THEME} from '../encore-theme'
+import {black, blue, dark_blue, dark_gray, light_black, pink, purple, THEME} from '../encore-theme'
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 
-const topbarColor = dark_blue;
+const topbarColor = black;
 const topbarText = blue;
 
 const drawerWidth = 240;
@@ -98,7 +98,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        backgroundColor: blue,
+        backgroundColor: topbarColor,
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -215,6 +215,7 @@ class Dashboard extends React.Component {
                         <Host
                             updateProcessing={this.updateProcessing}
                             handleEntry={this.handleEntry}
+                            token={this.props.token}
                         />
                     </Typography>
                 </div>

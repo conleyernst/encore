@@ -114,7 +114,10 @@ class Host extends Component {
 
     render() {
 
-        const myBool = true;
+        let myBool = false
+        if(this.props.token === ''){
+            myBool = true;
+        }
 
         const { classes } = this.props;
 
