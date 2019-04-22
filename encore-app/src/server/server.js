@@ -23,6 +23,10 @@ connection.once('open', function() {
 	console.log("MongoDB database connection established successfully");
 });
 
+// app.get('/', function(req, res) {
+//     res.json('CODE' + req.params.code);
+// });
+
 routes.route('/add').post(function (req, res) {
 	let song = new Song(req.body);
 	song.save().then(song => {

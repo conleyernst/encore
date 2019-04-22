@@ -8,6 +8,28 @@ import Entry from './pages/entry'
 import NavTabs from './components/nav-tabs'
 import BottomAppBar from './components/bottom-appbar'
 import Dashboard from './pages/dashboard'
+import Redirect from "react-router-dom/es/Redirect";
+import Link from "@material-ui/core/es/Link/Link";
+import Router from "react-router-dom/es/Router";
+
+const axios = require('axios');
+
+var scopes = 'user-read-private user-read-email';
+const URL = 'https://accounts.spotify.com/authorize' +
+    '?response_type=code' +
+    '&client_id=' + 'f73f2a98b84e4d399b54992b7f548173' +
+    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+    '&redirect_uri=' + encodeURIComponent('http://localhost:3000');
+
+
+// const GO = <Dashboard
+//     room_name={this.state.room_string}
+//     host={this.state.host}
+//     joined={this.state.joined}
+//     updateStates={this.updateStates}
+//     updateAuth={this.updateAuth}
+//     updateRedirect={this.updateRedirect}
+// />;
 
 class App extends Component {
     constructor(props) {
@@ -22,6 +44,12 @@ class App extends Component {
 
         this.updateStates = this.updateStates.bind(this)
         this.updateAuth = this.updateAuth.bind(this)
+        // this.updateRedirect = this.updateRedirect.bind(this)
+        this.getAuth = this.getAuth.bind(this)
+    }
+
+    componentDidMount(){
+        this.getAuth()
     }
 
     updateStates(obj) {
@@ -32,20 +60,30 @@ class App extends Component {
         this.setState(obj);
     }
 
-  render() {
-        console.log("TOKEN:" + this.state.token);
+    getAuth() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        this.setState({
+            token: vars.code
+        })
+    }
 
-    return (
-      <div className="App test">
-          <Dashboard
-              room_name={this.state.room_string}
-              host={this.state.host}
-              joined={this.state.joined}
-              updateStates={this.updateStates}
-              updateAuth={this.updateAuth}
-          />
-      </div>
-    );
+  render() {
+        console.log(this.state.token);
+        return (
+            <div className="App test">
+                <Dashboard
+                    room_name={this.state.room_string}
+                    host={this.state.host}
+                    joined={this.state.joined}
+                    token={this.state.token}
+                    updateStates={this.updateStates}
+                    updateAuth={this.updateAuth}
+                />
+            </div>
+        );
   }
 }
 

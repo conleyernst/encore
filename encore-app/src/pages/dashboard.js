@@ -185,6 +185,16 @@ class Dashboard extends React.Component {
         this.updateStates(host, joined, room_string);
     }
 
+    handleRedirect = (bool) => {
+        this.updateRedirect(bool);
+    }
+
+    updateRedirect(bool){
+        this.props.updateRedirect({
+            redirect: bool
+        })
+    }
+
     updateProcessing = (bool) => {
         this.setState({ processing: bool });
     }
@@ -227,6 +237,7 @@ class Dashboard extends React.Component {
                 <div className={classes.appBarSpacer}>
                     <Typography>
                         <Entry
+                            handleRedirect={this.handleRedirect}
                             handleEntry={this.handleEntry}
                         />
                     </Typography>
@@ -289,18 +300,6 @@ class Dashboard extends React.Component {
                                     {room_name}
                                 </Typography>
                             }
-
-                            {/*{loggedIn &&*/}
-                                {/*<Typography*/}
-                                    {/*component="h1"*/}
-                                    {/*variant="h6"*/}
-                                    {/*color="inherit"*/}
-                                    {/*noWrap*/}
-                                    {/*className={classes.roomName}*/}
-                                {/*>*/}
-                                   {/*Your Group Name: {room_name}*/}
-                                {/*</Typography>*/}
-                            {/*}*/}
                         </Toolbar>
                     </AppBar>
                     <Drawer
@@ -315,21 +314,8 @@ class Dashboard extends React.Component {
                                 <ChevronLeftIcon />
                             </IconButton>
                         </div>
-                        {/*<h1>ENCORE</h1>*/}
-                        {/*<Divider />*/}
                         <List>
-                            {/*<ListItem>*/}
-                                {/*<ListItemIcon>*/}
-                                    {/*<Brightness1 />*/}
-                                {/*</ListItemIcon>*/}
-                                {/*<ListItemText>*/}
-                                    {/*<h1 className={classes.encoreBrand}>Encore</h1>*/}
-                                {/*</ListItemText>*/}
-                            {/*</ListItem>*/}
                             <Divider />
-                            {/*<ListItem>*/}
-                                {/*<ListItemText primary="ENCORE"/>*/}
-                            {/*</ListItem>*/}
                             {loggedIn &&
                                 <ListItem button onClick={this.handleLeave}>
                                     <ListItemIcon>
@@ -338,12 +324,6 @@ class Dashboard extends React.Component {
                                     <ListItemText className={classes.test} primary="Leave Group"/>
                                 </ListItem>
                             }
-                            {/*<ListItem button>*/}
-                                {/*<ListItemIcon>*/}
-                                    {/*<DashboardIcon />*/}
-                                {/*</ListItemIcon>*/}
-                                {/*<ListItemText primary="Home" />*/}
-                            {/*</ListItem>*/}
                             <ListItem button>
                                 <ListItemIcon>
                                     <Help />
