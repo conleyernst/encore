@@ -13,13 +13,9 @@ import img from '../assets/american-idiot.jpg'
 import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
+
+
 const axios = require('axios');
-const mockData = {
-    songTitle: 'Holiday',
-    artist: 'Green Day',
-    image: img,
-    imgDescr: 'Album cover for American Idiot'
-};
 
 
 const styles = theme => ({
@@ -39,6 +35,8 @@ class Queue extends Component {
         this.getSongs = this.getSongs.bind(this)
         this.getCurrentSong = this.getCurrentSong.bind(this)
         this.handleVote = this.handleVote.bind(this)
+        this.handleVeto = this.handleVeto.bind(this)
+        this.reRender = this.reRender.bind(this)
     }
 
     componentDidMount(){
@@ -80,21 +78,59 @@ class Queue extends Component {
 
     handleVote = (songObj, isUpvote) => {
         //takes in entire song object and handles whether it should be an upvote or downvote
+        let queryStr = '/songs';
+        const songID = songObj._id;
+        console.log(songID);
+        console.log(isUpvote);
 
         if (isUpvote){
-            //todo post up vote to DB
-            console.log("up vote")
+            queryStr += '/upvote/' + songID
+            console.log(queryStr)
             console.log(songObj)
         }
         else{
-            //todo post down vote to DB
-            console.log("down vote")
+            queryStr += '/downvote/' + songID
+            console.log(queryStr)
             console.log(songObj)
         }
 
+        axios.post(queryStr, songObj,{
+            headers: {'Content-Type': 'application/json',}
+        })
+            .then(res => console.log(res.data))
+            .catch(error => {
+                console.log('voting error: ')
+                console.log(error)
+            });
+
+        this.reRender();
+    }
+
+    handleVeto = (songObj) => {
+        const songID = songObj._id;
+        const queryStr = '/songs/veto/' + songID;
+        console.log(songID);
+
+
+        axios.post(queryStr, songObj,{
+            headers: {'Content-Type': 'application/json',}
+        })
+            .then(res => console.log(res.data))
+            .catch(error => {
+                console.log('veto error: ')
+                console.log(error)
+            });
+        this.reRender();
+    }
+
+    reRender = () => {
+        this.getSongs();
+        this.render();
     }
 
     render() {
+
+        console.log(this.state.data)
 
         const { classes } = this.props;
 
@@ -135,6 +171,8 @@ class Queue extends Component {
                                 isHost={hosting}
                                 fetchedData={data}
                                 handleVote={this.handleVote}
+                                handleVeto={this.handleVeto}
+                                reRender={this.reRender}
                             />
                         </Grid>
                     </Grid>

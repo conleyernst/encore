@@ -34,7 +34,8 @@ import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
-import {blue, dark_blue, pink, purple} from '../encore-theme'
+import {blue, dark_blue, pink, purple, THEME} from '../encore-theme'
+import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 
 const topbarColor = dark_blue;
 const topbarText = blue;
@@ -165,6 +166,16 @@ class Dashboard extends React.Component {
         })
     }
 
+    updateAuth(token){
+        this.props.updateAuth({
+            token: token
+        })
+    }
+
+    getToken = (token) => {
+        this.updateAuth(token);
+    }
+
     updateModalState = (modalObj) => {
         this.setState(modalObj)
     }
@@ -172,6 +183,16 @@ class Dashboard extends React.Component {
     handleEntry = (host, joined, room_string) => {
         this.updateProcessing(true)
         this.updateStates(host, joined, room_string);
+    }
+
+    handleRedirect = (bool) => {
+        this.updateRedirect(bool);
+    }
+
+    updateRedirect(bool){
+        this.props.updateRedirect({
+            redirect: bool
+        })
     }
 
     updateProcessing = (bool) => {
@@ -228,7 +249,7 @@ class Dashboard extends React.Component {
 
 
         const { classes } = this.props;
-        const { host, joined, room_name} = this.props;
+        const { host, joined, room_name, token} = this.props;
 
         let loggedIn = false;
         if (!this.state.processing){
@@ -238,125 +259,98 @@ class Dashboard extends React.Component {
         }
 
         return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <AppBar
-                    position="absolute"
-                    className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                >
-                    <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(
-                                classes.menuButton,
-                                this.state.open && classes.menuButtonHidden,
-                            )}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h4"
-                            color="inherit"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Encore
-                        </Typography>
-
-                        {loggedIn &&
+            <MuiThemeProvider theme={THEME}>
+                <div className={classes.root}>
+                    <CssBaseline />
+                    <AppBar
+                        position="absolute"
+                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+                    >
+                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.handleDrawerOpen}
+                                className={classNames(
+                                    classes.menuButton,
+                                    this.state.open && classes.menuButtonHidden,
+                                )}
+                            >
+                                <MenuIcon />
+                            </IconButton>
                             <Typography
                                 component="h1"
-                                variant="h6"
+                                variant="h4"
                                 color="inherit"
                                 noWrap
-                                className={classes.roomName}
+                                className={classes.title}
                             >
-                                {room_name}
+                                Encore
                             </Typography>
-                        }
 
-                        {/*{loggedIn &&*/}
-                            {/*<Typography*/}
-                                {/*component="h1"*/}
-                                {/*variant="h6"*/}
-                                {/*color="inherit"*/}
-                                {/*noWrap*/}
-                                {/*className={classes.roomName}*/}
-                            {/*>*/}
-                               {/*Your Group Name: {room_name}*/}
-                            {/*</Typography>*/}
-                        {/*}*/}
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-                    }}
-                    open={this.state.open}
-                >
-                    <div className={classes.toolbarIcon}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </div>
-                    {/*<h1>ENCORE</h1>*/}
-                    {/*<Divider />*/}
-                    <List>
-                        {/*<ListItem>*/}
-                            {/*<ListItemIcon>*/}
-                                {/*<Brightness1 />*/}
-                            {/*</ListItemIcon>*/}
-                            {/*<ListItemText>*/}
-                                {/*<h1 className={classes.encoreBrand}>Encore</h1>*/}
-                            {/*</ListItemText>*/}
-                        {/*</ListItem>*/}
-                        <Divider />
-                        {/*<ListItem>*/}
-                            {/*<ListItemText primary="ENCORE"/>*/}
-                        {/*</ListItem>*/}
-                        {loggedIn &&
-                            <ListItem button onClick={this.handleLeave}>
+                            {loggedIn &&
+                                <Typography
+                                    component="h1"
+                                    variant="h6"
+                                    color="inherit"
+                                    noWrap
+                                    className={classes.roomName}
+                                >
+                                    {room_name}
+                                </Typography>
+                            }
+                        </Toolbar>
+                    </AppBar>
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                        }}
+                        open={this.state.open}
+                    >
+                        <div className={classes.toolbarIcon}>
+                            <IconButton onClick={this.handleDrawerClose}>
+                                <ChevronLeftIcon />
+                            </IconButton>
+                        </div>
+                        <List>
+                            <Divider />
+                            {loggedIn &&
+                                <ListItem button onClick={this.handleLeave}>
+                                    <ListItemIcon>
+                                        <NotInterested />
+                                    </ListItemIcon>
+                                    <ListItemText className={classes.test} primary="Leave Group"/>
+                                </ListItem>
+                            }
+                            <ListItem button>
                                 <ListItemIcon>
-                                    <NotInterested />
+                                    <Help />
                                 </ListItemIcon>
-                                <ListItemText className={classes.test} primary="Leave Group"/>
+                                <ListItemText primary="About" />
                             </ListItem>
-                        }
-                        {/*<ListItem button>*/}
-                            {/*<ListItemIcon>*/}
-                                {/*<DashboardIcon />*/}
-                            {/*</ListItemIcon>*/}
-                            {/*<ListItemText primary="Home" />*/}
-                        {/*</ListItem>*/}
-                        <ListItem button>
-                            <ListItemIcon>
-                                <Help />
-                            </ListItemIcon>
-                            <ListItemText primary="About" />
-                        </ListItem>
-                    </List>
-                </Drawer>
+                        </List>
+                    </Drawer>
 
-                <AddSongDialog
-                    isOpen={this.state.modalIsOpen}
-                    updateModalState={this.updateModalState}
-                />
+                    <AddSongDialog
+                        isOpen={this.state.modalIsOpen}
+                        updateModalState={this.updateModalState}
+                        getToken={this.getToken}
+                        token={token}
+                    />
 
-                <main className={classes.content}>
-                    {this.pageContent()}
-                </main>
+                    <main className={classes.content}>
+                        {this.pageContent()}
+                    </main>
 
-                <FloatingActionButtons
-                    updateModalState={this.updateModalState}
-                />
-                {/*<BottomAppBar*/}
-                    {/*updateModalState={this.updateModalState}*/}
-                {/*/>*/}
-            </div>
+                    <FloatingActionButtons
+                        updateModalState={this.updateModalState}
+                    />
+                    {/*<BottomAppBar*/}
+                        {/*updateModalState={this.updateModalState}*/}
+                    {/*/>*/}
+                </div>
+            </MuiThemeProvider>
         );
     }
 }

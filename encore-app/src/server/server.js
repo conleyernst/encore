@@ -23,6 +23,10 @@ connection.once('open', function() {
 	console.log("MongoDB database connection established successfully");
 });
 
+// app.get('/', function(req, res) {
+//     res.json('CODE' + req.params.code);
+// });
+
 routes.route('/add').post(function (req, res) {
 	let song = new Song(req.body);
 	song.save().then(song => {
@@ -70,6 +74,7 @@ routes.route('/update/:id').post(function(req, res) {
 });
 
 routes.route('/upvote/:id').post(function(req, res) {
+	console.log("endpoint hit")
 	Song.findById(req.params.id, function(err, song) {
 		if (!song)
 			res.status(404).send("song is not found");

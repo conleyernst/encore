@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Grid from "@material-ui/core/es/Grid/Grid";
 import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
@@ -9,6 +9,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { THEME } from '../encore-theme'
 import { pink, extra_light_pink } from '../encore-theme'
+import Route from "react-router-dom/es/Route";
 
 const styles = theme => ({
     entryBtn: {
@@ -51,8 +52,6 @@ class Entry extends Component {
         }
         this.handleJoin = this.handleJoin.bind(this)
         this.handleHost = this.handleHost.bind(this)
-        this.requestPlz = this.requestPlz.bind(this)
-
     }
 
     handleJoin(event) {
@@ -62,36 +61,16 @@ class Entry extends Component {
 
     handleHost(event) {
         event.preventDefault();
+
+        //todo fetch for spotify here
+
+        {/*<Route */}
+            {/*path='/privacy-policy' */}
+            {/*component={() => { window.location = 'https://example.zendesk.com/hc/en-us/articles/123456789-Privacy-Policies'; */}
+            {/*return null;} }*/}
+        {/*/>*/}
+
         this.props.handleEntry(true, false, '');
-    }
-
-    // placeholder axios
-    requestPlz(event) {
-        axios.get('/songs/')
-            .then(response => {
-            console.log('Get song response: ')
-            console.log(response.data)
-            if (response.data) {
-                console.log('Get Song : Success ')
-                console.log(response.data)
-
-                this.setState({
-                    data: response.data, //todo manually getting first value of array, fix this so response only returns one object
-                });
-            } else {
-                console.log('Get Song: failed');
-                this.setState({
-                    data: null
-                })
-            }
-        })
-        // axios.get('/song/').then(response => {
-        //     console.log('Get song response: ')
-        //     console.log(response.data)
-        //     this.setState({
-        //         data: response.data
-        //     });
-        // })
     }
 
     render() {
@@ -115,12 +94,7 @@ class Entry extends Component {
                         <Grid item xs={12}>
                             <Button size="large" className={classes.entryBtn} variant="contained" color="primary" onClick={this.handleHost}>Host</Button>
                         </Grid>
-                        {/*<Grid item xs={6}>*/}
-                            {/*<Button variant="contained" color="primary" onClick={this.handleHost}>Host</Button>*/}
-                        {/*</Grid>*/}
-                        {/*<Grid item xs={12}>*/}
-                            {/*<Button variant="contained" color="primary" onClick={this.requestPlz}>CLICK</Button>*/}
-                        {/*</Grid>*/}
+
                     </Grid>
                 </div>
                 </MuiThemeProvider>
