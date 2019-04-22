@@ -71,7 +71,6 @@ class Entry extends Component {
         {/*/>*/}
 
         this.props.handleEntry(true, false, '');
-        this.props.handleRedirect(true);
     }
 
     render() {

@@ -237,7 +237,6 @@ class Dashboard extends React.Component {
                 <div className={classes.appBarSpacer}>
                     <Typography>
                         <Entry
-                            handleRedirect={this.handleRedirect}
                             handleEntry={this.handleEntry}
                         />
                     </Typography>
@@ -250,7 +249,7 @@ class Dashboard extends React.Component {
 
 
         const { classes } = this.props;
-        const { host, joined, room_name} = this.props;
+        const { host, joined, room_name, token} = this.props;
 
         let loggedIn = false;
         if (!this.state.processing){
@@ -337,6 +336,7 @@ class Dashboard extends React.Component {
                         isOpen={this.state.modalIsOpen}
                         updateModalState={this.updateModalState}
                         getToken={this.getToken}
+                        token={token}
                     />
 
                     <main className={classes.content}>

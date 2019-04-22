@@ -32,6 +32,7 @@ class AddSongDialog extends Component {
         super(props)
         this.state = {
             song: 'foo',
+            token: '',
         };
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
@@ -39,6 +40,13 @@ class AddSongDialog extends Component {
         this.handleChange = this.handleChange.bind(this)
 
     }
+
+    // componentDidMount(){
+    //
+    //     this.setState({
+    //         token: this.props.token
+    //     });
+    // }
 
     // onChange={this.handleChange('name')}
 
@@ -56,9 +64,14 @@ class AddSongDialog extends Component {
     };
 
     handleClickOpen = () => {
-        this.props.updateModalState({
+        this.setState({
+            token: this.props.token
+        }, () => this.props.updateModalState({
             modalIsOpen: true,
-        });
+        }));
+        // this.props.updateModalState({
+        //     modalIsOpen: true,
+        // });
     };
 
     handleClose = () => {
@@ -93,6 +106,11 @@ class AddSongDialog extends Component {
     render() {
 
         const { classes } = this.props;
+        const { token } = this.props;
+        //
+        // console.log("TOKEN BABY: " + token);
+        console.log(token)
+        console.log(this.state.token);
 
         return (
             <MuiThemeProvider theme={THEME}>
