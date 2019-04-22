@@ -19,7 +19,7 @@ const styles = theme => ({
         overflowX: 'auto',
     },
     table: {
-        minWidth: 700,
+        // minWidth: 700,
         padding: 10,
     },
     voteBtn: {
@@ -31,6 +31,7 @@ const styles = theme => ({
     songTitle: {
         [theme.breakpoints.down('xs')]: {
             fontSize: 15,
+            fontStyle: 'bold',
         },
         [theme.breakpoints.up('sm')]: {
             fontSize: 20,
@@ -43,7 +44,8 @@ const styles = theme => ({
     },
     songVotes: {
         [theme.breakpoints.down('xs')]: {
-            fontSize: 15,
+            fontSize: 20,
+            textAlign: 'right',
         },
         [theme.breakpoints.up('sm')]: {
             fontSize: 25,
@@ -53,7 +55,7 @@ const styles = theme => ({
         fontFamily:  "Bowlby One SC",
         color: blue,
         [theme.breakpoints.down('xs')]: {
-            fontSize: 15,
+            fontSize: 20,
         },
         [theme.breakpoints.up('sm')]: {
             fontSize: 25,
@@ -114,12 +116,12 @@ class SimpleTable extends React.Component {
                             <TableRow>
                                 <TableCell className={classes.tableHeader} align="center">Song</TableCell>
                                 {/*<TableCell align="center">Artist</TableCell>*/}
-                                {/*{!host &&*/}
-                                {/*<TableCell className={classes.tableHeader} align="center">Vote</TableCell>*/}
-                                {/*}*/}
-                                {/*{host &&*/}
-                                {/*<TableCell className={classes.tableHeader} align="center">Veto</TableCell>*/}
-                                {/*}*/}
+                                {!host &&
+                                <TableCell className={classes.tableHeader} align="center">Vote</TableCell>
+                                }
+                                {host &&
+                                <TableCell className={classes.tableHeader} align="center">Veto</TableCell>
+                                }
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -128,7 +130,7 @@ class SimpleTable extends React.Component {
                                     <TableCell className={classes.tableCell} align="left" component="th" scope="row">
                                         <div className={classes.songContainer}>
                                             <div className={classes.songTitle}>
-                                                {n.title}
+                                                <strong>{n.title}</strong>
                                             </div>
                                             <div className={classes.songArtist}>
                                                 {n.artist}
@@ -136,74 +138,74 @@ class SimpleTable extends React.Component {
                                             <div className={classes.songVotes}>
                                                 {n.votes}
                                             </div>
-                                            {!host &&
-                                                <span>
-                                                    <Button
-                                                        onClick={() => this.handleUpVote(n)}
-                                                        className={classes.voteBtn}
-                                                        variant="contained"
-                                                        color="primary"
-                                                    >
-                                                        <ThumbUp />
-                                                    </Button>
-                                                    <Button
-                                                        onClick={() => this.handleDownVote(n)}
-                                                        className={classes.voteBtn}
-                                                        variant="contained"
-                                                        color="primary"
-                                                    >
-                                                        <ThumbDown/>
-                                                    </Button>
-                                                </span>
-                                            }
-                                            {host &&
-                                                <Button
-                                                    onClick={() => this.handleTableVeto(n)}
-                                                    variant="contained"
-                                                    color="primary"
-                                                >
-                                                    Veto
-                                                </Button>
-                                            }
+                                            {/*{!host &&*/}
+                                                {/*<span>*/}
+                                                    {/*<Button*/}
+                                                        {/*onClick={() => this.handleUpVote(n)}*/}
+                                                        {/*className={classes.voteBtn}*/}
+                                                        {/*variant="contained"*/}
+                                                        {/*color="primary"*/}
+                                                    {/*>*/}
+                                                        {/*<ThumbUp />*/}
+                                                    {/*</Button>*/}
+                                                    {/*<Button*/}
+                                                        {/*onClick={() => this.handleDownVote(n)}*/}
+                                                        {/*className={classes.voteBtn}*/}
+                                                        {/*variant="contained"*/}
+                                                        {/*color="primary"*/}
+                                                    {/*>*/}
+                                                        {/*<ThumbDown/>*/}
+                                                    {/*</Button>*/}
+                                                {/*</span>*/}
+                                            {/*}*/}
+                                            {/*{host &&*/}
+                                                {/*<Button*/}
+                                                    {/*onClick={() => this.handleTableVeto(n)}*/}
+                                                    {/*variant="contained"*/}
+                                                    {/*color="primary"*/}
+                                                {/*>*/}
+                                                    {/*Veto*/}
+                                                {/*</Button>*/}
+                                            {/*}*/}
 
 
                                         </div>
                                     </TableCell>
-                                    
+
                                     {/*<TableCell align="right">{n.title}</TableCell>*/}
                                     {/*<TableCell align="center">{n.artist}</TableCell>*/}
                                     {/*<TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>*/}
-                                    {/*{!host &&*/}
-                                    {/*<TableCell align="center">*/}
-                                        {/*<Button*/}
-                                            {/*onClick={() => this.handleUpVote(n)}*/}
-                                            {/*className={classes.voteBtn}*/}
-                                            {/*variant="contained"*/}
-                                            {/*color="primary"*/}
-                                        {/*>*/}
-                                            {/*<ThumbUp />*/}
-                                        {/*</Button>*/}
-                                        {/*<Button*/}
-                                            {/*onClick={() => this.handleDownVote(n)}*/}
-                                            {/*className={classes.voteBtn}*/}
-                                            {/*variant="contained"*/}
-                                            {/*color="primary"*/}
-                                        {/*>*/}
-                                            {/*<ThumbDown/>*/}
-                                        {/*</Button>*/}
-                                    {/*</TableCell>*/}
-                                    {/*}*/}
-                                    {/*{host &&*/}
-                                    {/*<TableCell align="center">*/}
-                                        {/*<Button*/}
-                                            {/*onClick={() => this.handleTableVeto(n)}*/}
-                                            {/*variant="contained"*/}
-                                            {/*color="primary"*/}
-                                        {/*>*/}
-                                            {/*Veto*/}
-                                        {/*</Button>*/}
-                                    {/*</TableCell>*/}
-                                    {/*}*/}
+                                    {!host &&
+                                    <TableCell align="center">
+                                        <Button
+                                            onClick={() => this.handleUpVote(n)}
+                                            className={classes.voteBtn}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            <ThumbUp />
+                                        </Button>
+                                        <Button
+                                            onClick={() => this.handleDownVote(n)}
+                                            className={classes.voteBtn}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            <ThumbDown/>
+                                        </Button>
+                                    </TableCell>
+                                    }
+                                    {host &&
+                                    <TableCell align="center">
+                                        <Button
+                                            onClick={() => this.handleTableVeto(n)}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            Veto
+                                        </Button>
+                                    </TableCell>
+                                    }
                                 </TableRow>
                             ))}
                         </TableBody>
