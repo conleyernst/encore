@@ -19,6 +19,9 @@ const styles = theme => ({
         fontSize: 30,
         textShadow: '5px 10px 18px rgba(0,0,0,0.2)',
     },
+    cardHolder: {
+        maxWidth: '100%',
+    }
 });
 
 const WithWidth = toRenderProps(withWidth());
@@ -162,7 +165,7 @@ class Queue extends Component {
                         <WithWidth>
                             {({ width }) => <div>
                                 {width === 'xs' &&
-                                    <Grid item xs={12} sm={4}>
+                                    <Grid className={classes.cardHolder} item xs={12} sm={4}>
                                         <NowPlayingCard
                                             imgUrl={currentSong.cover_art}
                                             title={currentSong.title}
