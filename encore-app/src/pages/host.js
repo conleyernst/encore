@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import Grid from "@material-ui/core/es/Grid/Grid";
-import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
@@ -45,7 +44,6 @@ const styles = theme => ({
     hostCode: {
         color: pink,
         fontFamily: "Ubuntu",
-        // fontFamily: "Bowlby One SC",
         fontSize: 40,
     },
     hostText: {
@@ -55,13 +53,11 @@ const styles = theme => ({
     },
     hostBtn: {
         margin: 20,
-        // color: theme.palette.primary,
         color: extra_light_pink
     },
     hostPage: {
         width: 500,
         height: 400,
-        // backgroundColor: pink,
         position: 'absolute',
         top: 0,
         bottom: 0,

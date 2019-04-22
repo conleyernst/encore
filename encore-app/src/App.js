@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Button from '@material-ui/core/Button';
-import { Route} from 'react-router-dom'
 import './App.css';
-
-import Entry from './pages/entry'
-import NavTabs from './components/nav-tabs'
-import BottomAppBar from './components/bottom-appbar'
 import Dashboard from './pages/dashboard'
-import Redirect from "react-router-dom/es/Redirect";
-import Link from "@material-ui/core/es/Link/Link";
-import Router from "react-router-dom/es/Router";
 
 class App extends Component {
     constructor(props) {

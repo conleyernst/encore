@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import Grid from "@material-ui/core/es/Grid/Grid";
-import Button from "@material-ui/core/es/Button/Button";
-
 import SimpleTable from '../components/simple-table';
-import MediaControlCard from '../components/media-control-card';
-
 import NowPlayingCard from '../components/now-playing';
-
-
-import img from '../assets/american-idiot.jpg'
 import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
-import {MediaQuery} from "react-responsive";
-
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import {toRenderProps} from "recompose";
+import withWidth from "@material-ui/core/es/withWidth/withWidth";
 
 const axios = require('axios');
 
@@ -26,13 +17,8 @@ const styles = theme => ({
         color: pink,
         fontFamily:  "Bowlby One SC",
         fontSize: 30,
+        textShadow: '5px 10px 18px rgba(0,0,0,0.2)',
     },
-    mobile: {
-
-    },
-    notMobile: {
-
-    }
 });
 
 const WithWidth = toRenderProps(withWidth());
@@ -198,13 +184,6 @@ class Queue extends Component {
 
                             </div>}
                         </WithWidth>
-                        {/*<Grid item xs={12} sm={4}>*/}
-                            {/*<NowPlayingCard*/}
-                                {/*imgUrl={currentSong.cover_art}*/}
-                                {/*title={currentSong.title}*/}
-                                {/*artist={currentSong.artist}*/}
-                            {/*/>*/}
-                        {/*</Grid>*/}
                         <Grid item xs={12} sm={8}>
                             <WithWidth>
                                 {({ width }) => <div>
@@ -228,34 +207,10 @@ class Queue extends Component {
                                             isMobile={false}
                                         />
                                     }
-
                                 </div>}
                             </WithWidth>
-                            {/*<SimpleTable*/}
-                                {/*isHost={hosting}*/}
-                                {/*fetchedData={data}*/}
-                                {/*handleVote={this.handleVote}*/}
-                                {/*handleVeto={this.handleVeto}*/}
-                                {/*reRender={this.reRender}*/}
-                                {/*isMobile={}*/}
-                            {/*/>*/}
                         </Grid>
                     </Grid>
-                    <WithWidth>
-                        {({ width }) => <div>
-                                {width === 'xs' &&
-                                    <div className={classes.mobile}>
-                                        <p>mobile</p>
-                                    </div>
-                                }
-                                {width !== 'xs' &&
-                                <div className={classes.notMobile}>
-                                    <p>not mobile</p>
-                                </div>
-                                }
-
-                            </div>}
-                    </WithWidth>
                 </div>
             </MuiThemeProvider>
         )
