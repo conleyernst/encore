@@ -13,13 +13,9 @@ import img from '../assets/american-idiot.jpg'
 import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
+
+
 const axios = require('axios');
-const mockData = {
-    songTitle: 'Holiday',
-    artist: 'Green Day',
-    image: img,
-    imgDescr: 'Album cover for American Idiot'
-};
 
 
 const styles = theme => ({
@@ -89,20 +85,29 @@ class Queue extends Component {
         //     runtime: 0,
         //     votes: 0
         // }
-        let queryStr = '';
+        // let config = headers: {
+        //     'Content-Type': 'application/json'
+        // }
+    // }
+        let queryStr = '/songs';
         const songID = songObj._id;
         console.log(songID);
+        console.log(isUpvote);
 
         if (isUpvote){
-            queryStr = '/upvote/' + songID
+            queryStr += '/upvote/' + songID
             console.log(queryStr)
             console.log(songObj)
         }
         else{
-            queryStr = '/downvote/' + songID
+            queryStr += '/downvote/' + songID
+            console.log(queryStr)
+            console.log(songObj)
         }
 
-        axios.post(queryStr, songObj)
+        axios.post(queryStr, songObj,{
+            headers: {'Content-Type': 'application/json',}
+        })
             .then(res => console.log(res.data))
             .catch(error => {
                 console.log('voting error: ')

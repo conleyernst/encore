@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/es/Paper/Paper";
 import Button from "@material-ui/core/es/Button/Button";
 
 import Queue from './queue'
-import {extra_light_blue, extra_light_pink, pink, THEME} from "../encore-theme";
+import {blue, extra_light_blue, extra_light_pink, pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
 
@@ -35,14 +35,32 @@ const nouns = [
 
 
 const styles = theme => ({
-    hostText: {
+    hostCode: {
         color: pink,
-        margin: 20,
+        fontFamily: "Ubuntu",
+        // fontFamily: "Bowlby One SC",
+        fontSize: 40,
+    },
+    hostText: {
+        color: blue,
+        fontFamily: "Bowlby One SC",
+        fontSize: 30,
     },
     hostBtn: {
         margin: 20,
         // color: theme.palette.primary,
         color: extra_light_pink
+    },
+    hostPage: {
+        width: 500,
+        height: 400,
+        // backgroundColor: pink,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 70, //todo debug offset
+        right: 0,
+        margin: 'auto',
     },
 });
 
@@ -104,7 +122,7 @@ class Host extends Component {
         else{
             return (
                 <MuiThemeProvider theme={THEME}>
-                    <div className="join-page">
+                    <div className={classes.hostPage}>
                         <Grid
                             container
                             direction="row"
@@ -112,10 +130,10 @@ class Host extends Component {
                             alignItems="center"
                         >
                             <Grid item xs={12}>
-                                <h1 className={classes.hostText}>Enter your code...</h1>
+                                <h1 className={classes.hostText}>Your Party Code is:</h1>
                             </Grid>
                             <Grid item xs={12}>
-                                <h2 className={classes.hostText} >Your code is '{roomId}'</h2>
+                                <h2 className={classes.hostCode} >'{roomId}'</h2>
                             </Grid>
                             <Grid item xs={12}>
                                 <Button className={classes.hostBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>

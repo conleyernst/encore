@@ -70,6 +70,7 @@ routes.route('/update/:id').post(function(req, res) {
 });
 
 routes.route('/upvote/:id').post(function(req, res) {
+	console.log("endpoint hit")
 	Song.findById(req.params.id, function(err, song) {
 		if (!song)
 			res.status(404).send("song is not found");
