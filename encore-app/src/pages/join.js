@@ -9,6 +9,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import TextField from "@material-ui/core/es/TextField/TextField";
 import {extra_light_blue, extra_light_pink, pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
+import FadeSnackbar from "../components/snackbar";
 
 const styles = theme => ({
     container: {
@@ -57,17 +58,18 @@ class Join extends Component {
             showQueue: false,
             roomIdStr: '',
             roomIdValid: false,
+            isSnackOpen: true,
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.isRoomValid = this.isRoomValid.bind(this)
+        this.updateSnackbarState = this.updateSnackbarState.bind(this)
     }
 
 
     isRoomValid(enteredStr){
         //todo check database for string name here, make is room valid false if nothing found
         return true;
-
     }
 
     handleSubmit(event) {
@@ -102,6 +104,10 @@ class Join extends Component {
             roomIdStr: event.target.value
         });
     };
+
+    updateSnackbarState = (snackObj) => {
+        this.setState(snackObj)
+    }
 
     render() {
 
@@ -143,6 +149,11 @@ class Join extends Component {
                                 <Button size="large" className={classes.joinBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
                             </Grid>
                         </Grid>
+                        <FadeSnackbar
+                            isOpen={this.state.isSnackOpen}
+                            updateSnackbarState={this.updateSnackbarState}
+                            text='Foo bar'
+                        />
                     </div>
                 </MuiThemeProvider>
             )

@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/es/Button/Button";
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
+import {blue} from "../encore-theme";
 
 
 const styles = {
@@ -37,6 +38,11 @@ const styles = {
     songVotes: {
         fontSize: 20,
     },
+    tableHeader: {
+        fontFamily:  "Bowlby One SC",
+        fontSize: 25,
+        color: blue,
+    }
 
 };
 
@@ -85,14 +91,14 @@ class SimpleTable extends React.Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Song</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Song</TableCell>
                             {/*<TableCell align="center">Artist</TableCell>*/}
-                            <TableCell align="center">Score</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Score</TableCell>
                             {!host &&
-                            <TableCell align="center">Vote</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Vote</TableCell>
                             }
                             {host &&
-                            <TableCell align="center">Veto</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Veto</TableCell>
                             }
                         </TableRow>
                     </TableHead>

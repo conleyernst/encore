@@ -12,25 +12,6 @@ import Redirect from "react-router-dom/es/Redirect";
 import Link from "@material-ui/core/es/Link/Link";
 import Router from "react-router-dom/es/Router";
 
-const axios = require('axios');
-
-var scopes = 'user-read-private user-read-email';
-const URL = 'https://accounts.spotify.com/authorize' +
-    '?response_type=code' +
-    '&client_id=' + 'f73f2a98b84e4d399b54992b7f548173' +
-    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent('http://localhost:3000');
-
-
-// const GO = <Dashboard
-//     room_name={this.state.room_string}
-//     host={this.state.host}
-//     joined={this.state.joined}
-//     updateStates={this.updateStates}
-//     updateAuth={this.updateAuth}
-//     updateRedirect={this.updateRedirect}
-// />;
-
 class App extends Component {
     constructor(props) {
         super(props);

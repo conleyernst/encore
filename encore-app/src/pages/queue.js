@@ -21,6 +21,8 @@ const axios = require('axios');
 const styles = theme => ({
     queue: {
         color: pink,
+        fontFamily:  "Bowlby One SC",
+        fontSize: 30,
     }
 
 });
@@ -68,7 +70,7 @@ class Queue extends Component {
         //todo: use spotify API to get the current song playing - then assign it to the currentSong variable to pass into the media card
 
         if (this.state.data){
-            currentSong = this.state.data[0]; //placeholder for now, just return the first object in the list
+            currentSong = this.state.data[1]; //placeholder for now, just return the first object in the list
         }
 
         this.setState({
@@ -157,7 +159,7 @@ class Queue extends Component {
                         alignItems="center"
                     >
                         <Grid item xs={12}>
-                            <h2 className={classes.queue}>Queue</h2>
+                                <h2 className={classes.queue}>Welcome to the Party</h2>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <NowPlayingCard

@@ -13,7 +13,8 @@ export const dark_blue = '#0A2239';
 export const blue = '#53A2BE';
 export const purple = '#690375';
 export const pink = '#CB429F';
-export const black = '#13070C';
+export const black = '#140016';
+export const dark_gray = '#515151';
 
 export const extra_light_blue = "#f0f2ff";
 export const extra_light_pink = '#ffcaee';
