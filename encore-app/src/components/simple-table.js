@@ -62,6 +62,8 @@ const styles = theme => ({
     },
     tableCell: {
         paddingRight: 0,
+        fontSize: 25,
+        color: blue,
     }
 
 });
@@ -103,8 +105,7 @@ class SimpleTable extends React.Component {
         data = fetchedData;
 
         const host = isHost.isHost //shitty debug but hey at least it works
-
-
+        
         if(isMobile){
             return (
                 <Paper className={classes.root}>

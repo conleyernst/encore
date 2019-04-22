@@ -24,6 +24,7 @@ const styles = theme => ({
             fontSize: 30,
         },
         color: pink,
+        fontSize: 30,
         fontFamily: "Bowlby One SC",
         textShadow: '5px 10px 18px rgba(0,0,0,0.2)',
     },
