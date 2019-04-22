@@ -17,16 +17,23 @@ class App extends Component {
             host: false,
             joined: false,
             room_string: '',
+            token: '',
         };
 
         this.updateStates = this.updateStates.bind(this)
+        this.updateAuth = this.updateAuth.bind(this)
     }
 
     updateStates(obj) {
         this.setState(obj);
     }
 
+    updateAuth(obj) {
+        this.setState(obj);
+    }
+
   render() {
+        console.log("TOKEN:" + this.state.token);
 
     return (
       <div className="App">
@@ -35,37 +42,8 @@ class App extends Component {
               host={this.state.host}
               joined={this.state.joined}
               updateStates={this.updateStates}
+              updateAuth={this.updateAuth}
           />
-
-          {/*<p>Hello world!</p>*/}
-          {/*<Button variant="contained" color="primary">*/}
-              {/*Hello World*/}
-          {/*</Button>*/}
-          {/*<NavTabs/>*/}
-
-          {/*<Route*/}
-              {/*exact path="/"*/}
-              {/*component={Entry}*/}
-          {/*/>*/}
-          {/*<Route*/}
-              {/*exact path="/dashboard"*/}
-              {/*component={Dashboard}*/}
-          {/*/>*/}
-        {/*<header className="App-header">*/}
-          {/*<img src={logo} className="App-logo" alt="logo" />*/}
-          {/*<p>*/}
-            {/*Edit <code>src/App.js</code> and save to reload.*/}
-          {/*</p>*/}
-          {/*<a*/}
-            {/*className="App-link"*/}
-            {/*href="https://reactjs.org"*/}
-            {/*target="_blank"*/}
-            {/*rel="noopener noreferrer"*/}
-          {/*>*/}
-            {/*Learn React*/}
-          {/*</a>*/}
-        {/*</header>*/}
-        {/*<BottomAppBar/>*/}
       </div>
     );
   }

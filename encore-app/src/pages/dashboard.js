@@ -165,6 +165,16 @@ class Dashboard extends React.Component {
         })
     }
 
+    updateAuth(token){
+        this.props.updateAuth({
+            token: token
+        })
+    }
+
+    getToken = (token) => {
+        this.updateAuth(token);
+    }
+
     updateModalState = (modalObj) => {
         this.setState(modalObj)
     }
@@ -344,6 +354,7 @@ class Dashboard extends React.Component {
                 <AddSongDialog
                     isOpen={this.state.modalIsOpen}
                     updateModalState={this.updateModalState}
+                    getToken={this.getToken}
                 />
 
                 <main className={classes.content}>
