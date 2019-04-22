@@ -46,16 +46,24 @@ class SimpleTable extends React.Component {
 
         this.handleDownVote = this.handleDownVote.bind(this)
         this.handleUpVote = this.handleUpVote.bind(this)
+        this.handleTableVeto = this.handleTableVeto.bind(this)
     }
 
 
     handleDownVote(songObj){
         this.props.handleVote(songObj, false)
+        this.props.reRender();
         // this.props.handleVote(id)
     }
 
     handleUpVote(songObj){
         this.props.handleVote(songObj, true)
+        this.props.reRender();
+    }
+
+    handleTableVeto(songObj){
+        this.props.handleVeto(songObj)
+        this.props.reRender();
     }
 
 
@@ -106,17 +114,33 @@ class SimpleTable extends React.Component {
                                 <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
                                 {!host &&
                                 <TableCell align="center">
-                                    <Button onClick={() => this.handleUpVote(n)} className={classes.voteBtn} variant="contained" color="primary">
+                                    <Button
+                                        onClick={() => this.handleUpVote(n)}
+                                        className={classes.voteBtn}
+                                        variant="contained"
+                                        color="primary"
+                                    >
                                         <ThumbUp />
                                     </Button>
-                                    <Button onClick={() => this.handleDownVote(n)} className={classes.voteBtn} variant="contained" color="primary">
+                                    <Button
+                                        onClick={() => this.handleDownVote(n)}
+                                        className={classes.voteBtn}
+                                        variant="contained"
+                                        color="primary"
+                                    >
                                         <ThumbDown/>
                                     </Button>
                                 </TableCell>
                                 }
                                 {host &&
                                 <TableCell align="center">
-                                    <Button variant="contained" color="primary">Veto</Button>
+                                    <Button
+                                        onClick={() => this.handleTableVeto(n)}
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        Veto
+                                    </Button>
                                 </TableCell>
                                 }
                             </TableRow>

@@ -35,6 +35,8 @@ class Queue extends Component {
         this.getSongs = this.getSongs.bind(this)
         this.getCurrentSong = this.getCurrentSong.bind(this)
         this.handleVote = this.handleVote.bind(this)
+        this.handleVeto = this.handleVeto.bind(this)
+        this.reRender = this.reRender.bind(this)
     }
 
     componentDidMount(){
@@ -76,19 +78,6 @@ class Queue extends Component {
 
     handleVote = (songObj, isUpvote) => {
         //takes in entire song object and handles whether it should be an upvote or downvote
-
-        // const songObject = {
-        //     spotify_id: songObj.spotify_id,
-        //     title: songObj.title,
-        //     artist: songObj.artist,
-        //     cover_art: songObj.cover_art,
-        //     runtime: 0,
-        //     votes: 0
-        // }
-        // let config = headers: {
-        //     'Content-Type': 'application/json'
-        // }
-    // }
         let queryStr = '/songs';
         const songID = songObj._id;
         console.log(songID);
@@ -113,6 +102,30 @@ class Queue extends Component {
                 console.log('voting error: ')
                 console.log(error)
             });
+
+        this.reRender();
+    }
+
+    handleVeto = (songObj) => {
+        const songID = songObj._id;
+        const queryStr = '/songs/veto/' + songID;
+        console.log(songID);
+
+
+        axios.post(queryStr, songObj,{
+            headers: {'Content-Type': 'application/json',}
+        })
+            .then(res => console.log(res.data))
+            .catch(error => {
+                console.log('veto error: ')
+                console.log(error)
+            });
+        this.reRender();
+    }
+
+    reRender = () => {
+        this.getSongs();
+        this.render();
     }
 
     render() {
@@ -158,6 +171,8 @@ class Queue extends Component {
                                 isHost={hosting}
                                 fetchedData={data}
                                 handleVote={this.handleVote}
+                                handleVeto={this.handleVeto}
+                                reRender={this.reRender}
                             />
                         </Grid>
                     </Grid>

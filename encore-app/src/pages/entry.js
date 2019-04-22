@@ -51,8 +51,6 @@ class Entry extends Component {
         }
         this.handleJoin = this.handleJoin.bind(this)
         this.handleHost = this.handleHost.bind(this)
-        this.requestPlz = this.requestPlz.bind(this)
-
     }
 
     handleJoin(event) {
@@ -67,35 +65,6 @@ class Entry extends Component {
 
         this.props.handleEntry(true, false, '');
     }
-    //
-    // // placeholder axios
-    // requestPlz(event) {
-    //     axios.get('/songs/')
-    //         .then(response => {
-    //         console.log('Get song response: ')
-    //         console.log(response.data)
-    //         if (response.data) {
-    //             console.log('Get Song : Success ')
-    //             console.log(response.data)
-    //
-    //             this.setState({
-    //                 data: response.data, //todo manually getting first value of array, fix this so response only returns one object
-    //             });
-    //         } else {
-    //             console.log('Get Song: failed');
-    //             this.setState({
-    //                 data: null
-    //             })
-    //         }
-    //     })
-    //     // axios.get('/song/').then(response => {
-    //     //     console.log('Get song response: ')
-    //     //     console.log(response.data)
-    //     //     this.setState({
-    //     //         data: response.data
-    //     //     });
-    //     // })
-    // }
 
     render() {
         const { classes } = this.props;
