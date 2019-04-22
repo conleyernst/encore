@@ -148,7 +148,7 @@ class Host extends Component {
                                 <h2 className={classes.hostCode} >'{roomId}'</h2>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button className={classes.hostBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
+                                <Button size="large" className={classes.hostBtn} variant="contained" color="primary" onClick={this.handleSubmit}>Go!</Button>
                             </Grid>
                             {myBool &&
                                 <Grid item xs={12}>
