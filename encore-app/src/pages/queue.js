@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import Grid from "@material-ui/core/es/Grid/Grid";
-import Button from "@material-ui/core/es/Button/Button";
-
 import SimpleTable from '../components/simple-table';
-import MediaControlCard from '../components/media-control-card';
-
 import NowPlayingCard from '../components/now-playing';
-
-
-import img from '../assets/american-idiot.jpg'
 import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
-
+import {toRenderProps} from "recompose";
+import withWidth from "@material-ui/core/es/withWidth/withWidth";
 
 const axios = require('axios');
 
@@ -23,9 +17,11 @@ const styles = theme => ({
         color: pink,
         fontFamily:  "Bowlby One SC",
         fontSize: 30,
-    }
-
+        textShadow: '5px 10px 18px rgba(0,0,0,0.2)',
+    },
 });
+
+const WithWidth = toRenderProps(withWidth());
 
 class Queue extends Component {
     constructor(props) {
@@ -150,7 +146,9 @@ class Queue extends Component {
             )
         }
         return (
+
             <MuiThemeProvider theme={THEME}>
+
                 <div className="host-queue">
                     <Grid
                         container
@@ -161,21 +159,56 @@ class Queue extends Component {
                         <Grid item xs={12}>
                                 <h2 className={classes.queue}>Welcome to the Party</h2>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <NowPlayingCard
-                                imgUrl={currentSong.cover_art}
-                                title={currentSong.title}
-                                artist={currentSong.artist}
-                            />
-                        </Grid>
+                        <WithWidth>
+                            {({ width }) => <div>
+                                {width === 'xs' &&
+                                    <Grid item xs={12} sm={4}>
+                                        <NowPlayingCard
+                                            imgUrl={currentSong.cover_art}
+                                            title={currentSong.title}
+                                            artist={currentSong.artist}
+                                            isMobile={true}
+                                        />
+                                    </Grid>
+                                }
+                                {width !== 'xs' &&
+                                    <Grid item xs={12} sm={4}>
+                                        <NowPlayingCard
+                                            imgUrl={currentSong.cover_art}
+                                            title={currentSong.title}
+                                            artist={currentSong.artist}
+                                            isMobile={false}
+                                        />
+                                    </Grid>
+                                }
+
+                            </div>}
+                        </WithWidth>
                         <Grid item xs={12} sm={8}>
-                            <SimpleTable
-                                isHost={hosting}
-                                fetchedData={data}
-                                handleVote={this.handleVote}
-                                handleVeto={this.handleVeto}
-                                reRender={this.reRender}
-                            />
+                            <WithWidth>
+                                {({ width }) => <div>
+                                    {width === 'xs' &&
+                                        <SimpleTable
+                                            isHost={hosting}
+                                            fetchedData={data}
+                                            handleVote={this.handleVote}
+                                            handleVeto={this.handleVeto}
+                                            reRender={this.reRender}
+                                            isMobile={true}
+                                        />
+                                    }
+                                    {width !== 'xs' &&
+                                        <SimpleTable
+                                            isHost={hosting}
+                                            fetchedData={data}
+                                            handleVote={this.handleVote}
+                                            handleVeto={this.handleVeto}
+                                            reRender={this.reRender}
+                                            isMobile={false}
+                                        />
+                                    }
+                                </div>}
+                            </WithWidth>
                         </Grid>
                     </Grid>
                 </div>

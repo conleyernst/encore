@@ -130,6 +130,7 @@ class AddSongDialog extends Component {
                             margin="dense"
                             id="name"
                             label="Song Title"
+                            placeholder="Add Song Title"
                             // type="email"
                             onChange={this.handleChange}
                             fullWidth
@@ -140,7 +141,7 @@ class AddSongDialog extends Component {
                             Cancel
                         </Button>
                         <Button onClick={this.handleSubmit} color="secondary">
-                            Submit
+                            <strong>Submit</strong>
                         </Button>
                     </DialogActions>
                 </Dialog>

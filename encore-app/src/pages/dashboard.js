@@ -18,19 +18,13 @@ import { mainListItems } from '../components/list-items';
 import SimpleTable from '../components/simple-table';
 import Help from '@material-ui/icons/Help';
 import NotInterested from '@material-ui/icons/NotInterested';
-import AddIcon from '@material-ui/icons/Add';
-import Brightness1 from '@material-ui/icons/Brightness1';
-
-
 import Entry from './entry'
-import Queue from './queue'
 import Host from './host'
 import Join from './join'
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/es/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
-import BottomAppBar from '../components/bottom-appbar';
 import FloatingActionButtons from '../components/float-button';
 import AddSongDialog from "../components/add-song-dialog";
 
@@ -344,12 +338,11 @@ class Dashboard extends React.Component {
                         {this.pageContent()}
                     </main>
 
-                    <FloatingActionButtons
-                        updateModalState={this.updateModalState}
-                    />
-                    {/*<BottomAppBar*/}
-                        {/*updateModalState={this.updateModalState}*/}
-                    {/*/>*/}
+                    {loggedIn &&
+                        <FloatingActionButtons
+                            updateModalState={this.updateModalState}
+                        />
+                    }
                 </div>
             </MuiThemeProvider>
         );

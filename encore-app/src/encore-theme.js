@@ -15,6 +15,7 @@ export const purple = '#690375';
 export const pink = '#CB429F';
 export const black = '#140016';
 export const dark_gray = '#515151';
+export const extra_dark_gray = '#241f25';
 
 export const extra_light_blue = "#f0f2ff";
 export const extra_light_pink = '#ffcaee';
