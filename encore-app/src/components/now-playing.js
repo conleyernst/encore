@@ -48,18 +48,20 @@ class NowPlayingCard extends React.Component {
     render() {
         const { classes } = this.props;
 
-        const { imgUrl, artist, title } = this.props;
+        const { imgUrl, artist, title, isMobile } = this.props;
         return (
             <Card className={classes.card}>
                 <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt="Contemplative Reptile"
-                        className={classes.media}
-                        // height="140"
-                        image={imgUrl}
-                        title="Contemplative Reptile"
-                    />
+                    {!isMobile &&
+                        <CardMedia
+                            component="img"
+                            alt="Contemplative Reptile"
+                            className={classes.media}
+                            // height="140"
+                            image={imgUrl}
+                            title="Contemplative Reptile"
+                        />
+                    }
                     <CardContent>
                         <Typography className={classes.nowPlaying} align="center" gutterBottom variant="h6" component="h2">
                             Now Playing

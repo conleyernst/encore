@@ -13,7 +13,7 @@ import ThumbDown from '@material-ui/icons/ThumbDown';
 import {blue} from "../encore-theme";
 
 
-const styles = {
+const styles = theme => ({
     root: {
         width: '100%',
         overflowX: 'auto',
@@ -29,22 +29,41 @@ const styles = {
         display: 'block',
     },
     songTitle: {
-        fontSize: 20,
-        marginBottom: 5,
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 15,
+        },
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 20,
+        },
+        // fontSize: 20,
+        // marginBottom: 5,
     },
     songArtist: {
         fontSize: 15,
     },
     songVotes: {
-        fontSize: 20,
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 15,
+        },
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 25,
+        },
     },
     tableHeader: {
         fontFamily:  "Bowlby One SC",
-        fontSize: 25,
         color: blue,
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 15,
+        },
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 25,
+        },
+    },
+    tableCell: {
+        paddingRight: 0,
     }
 
-};
+});
 
 class SimpleTable extends React.Component {
     constructor(props){
@@ -80,81 +99,259 @@ class SimpleTable extends React.Component {
         let data = [];
 
         //todo have this as a prop passed in
-        const { isHost, fetchedData, handleVote } = this.props;
+        const { isHost, fetchedData, handleVote, isMobile } = this.props;
 
         data = fetchedData;
 
         const host = isHost.isHost //shitty debug but hey at least it works
 
-        return(
-            <Paper className={classes.root}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.tableHeader} align="center">Song</TableCell>
-                            {/*<TableCell align="center">Artist</TableCell>*/}
-                            <TableCell className={classes.tableHeader} align="center">Score</TableCell>
-                            {!host &&
-                            <TableCell className={classes.tableHeader} align="center">Vote</TableCell>
-                            }
-                            {host &&
-                            <TableCell className={classes.tableHeader} align="center">Veto</TableCell>
-                            }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data && data.map(n => (
-                            <TableRow key={n._id}>
-                                <TableCell align="left" component="th" scope="row">
-                                    <div className={classes.songContainer}>
-                                        <div className={classes.songTitle}>
-                                            {n.title}
+
+        if(isMobile){
+            return (
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.tableHeader} align="center">Song</TableCell>
+                                {/*<TableCell align="center">Artist</TableCell>*/}
+                                {/*{!host &&*/}
+                                {/*<TableCell className={classes.tableHeader} align="center">Vote</TableCell>*/}
+                                {/*}*/}
+                                {/*{host &&*/}
+                                {/*<TableCell className={classes.tableHeader} align="center">Veto</TableCell>*/}
+                                {/*}*/}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data && data.map(n => (
+                                <TableRow key={n._id}>
+                                    <TableCell className={classes.tableCell} align="left" component="th" scope="row">
+                                        <div className={classes.songContainer}>
+                                            <div className={classes.songTitle}>
+                                                {n.title}
+                                            </div>
+                                            <div className={classes.songArtist}>
+                                                {n.artist}
+                                            </div>
+                                            <div className={classes.songVotes}>
+                                                {n.votes}
+                                            </div>
+                                            {!host &&
+                                                <span>
+                                                    <Button
+                                                        onClick={() => this.handleUpVote(n)}
+                                                        className={classes.voteBtn}
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        <ThumbUp />
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() => this.handleDownVote(n)}
+                                                        className={classes.voteBtn}
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        <ThumbDown/>
+                                                    </Button>
+                                                </span>
+                                            }
+                                            {host &&
+                                                <Button
+                                                    onClick={() => this.handleTableVeto(n)}
+                                                    variant="contained"
+                                                    color="primary"
+                                                >
+                                                    Veto
+                                                </Button>
+                                            }
+
+
                                         </div>
-                                        <div className={classes.songArtist}>
-                                            {n.artist}
-                                        </div>
-                                    </div>
-                                </TableCell>
-                                {/*<TableCell align="right">{n.title}</TableCell>*/}
-                                {/*<TableCell align="center">{n.artist}</TableCell>*/}
-                                <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
+                                    </TableCell>
+                                    
+                                    {/*<TableCell align="right">{n.title}</TableCell>*/}
+                                    {/*<TableCell align="center">{n.artist}</TableCell>*/}
+                                    {/*<TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>*/}
+                                    {/*{!host &&*/}
+                                    {/*<TableCell align="center">*/}
+                                        {/*<Button*/}
+                                            {/*onClick={() => this.handleUpVote(n)}*/}
+                                            {/*className={classes.voteBtn}*/}
+                                            {/*variant="contained"*/}
+                                            {/*color="primary"*/}
+                                        {/*>*/}
+                                            {/*<ThumbUp />*/}
+                                        {/*</Button>*/}
+                                        {/*<Button*/}
+                                            {/*onClick={() => this.handleDownVote(n)}*/}
+                                            {/*className={classes.voteBtn}*/}
+                                            {/*variant="contained"*/}
+                                            {/*color="primary"*/}
+                                        {/*>*/}
+                                            {/*<ThumbDown/>*/}
+                                        {/*</Button>*/}
+                                    {/*</TableCell>*/}
+                                    {/*}*/}
+                                    {/*{host &&*/}
+                                    {/*<TableCell align="center">*/}
+                                        {/*<Button*/}
+                                            {/*onClick={() => this.handleTableVeto(n)}*/}
+                                            {/*variant="contained"*/}
+                                            {/*color="primary"*/}
+                                        {/*>*/}
+                                            {/*Veto*/}
+                                        {/*</Button>*/}
+                                    {/*</TableCell>*/}
+                                    {/*}*/}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            );
+        }
+        else {
+            return(
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.tableHeader} align="center">Song</TableCell>
+                                {/*<TableCell align="center">Artist</TableCell>*/}
+                                <TableCell className={classes.tableHeader} align="center">Score</TableCell>
                                 {!host &&
-                                <TableCell align="center">
-                                    <Button
-                                        onClick={() => this.handleUpVote(n)}
-                                        className={classes.voteBtn}
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        <ThumbUp />
-                                    </Button>
-                                    <Button
-                                        onClick={() => this.handleDownVote(n)}
-                                        className={classes.voteBtn}
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        <ThumbDown/>
-                                    </Button>
-                                </TableCell>
+                                <TableCell className={classes.tableHeader} align="center">Vote</TableCell>
                                 }
                                 {host &&
-                                <TableCell align="center">
-                                    <Button
-                                        onClick={() => this.handleTableVeto(n)}
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        Veto
-                                    </Button>
-                                </TableCell>
+                                <TableCell className={classes.tableHeader} align="center">Veto</TableCell>
                                 }
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper>
-        )
+                        </TableHead>
+                        <TableBody>
+                            {data && data.map(n => (
+                                <TableRow key={n._id}>
+                                    <TableCell className={classes.tableCell} align="left" component="th" scope="row">
+                                        <div className={classes.songContainer}>
+                                            <div className={classes.songTitle}>
+                                                {n.title}
+                                            </div>
+                                            <div className={classes.songArtist}>
+                                                {n.artist}
+                                            </div>
+                                        </div>
+                                    </TableCell>
+                                    {/*<TableCell align="right">{n.title}</TableCell>*/}
+                                    {/*<TableCell align="center">{n.artist}</TableCell>*/}
+                                    <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
+                                    {!host &&
+                                    <TableCell align="center">
+                                        <Button
+                                            onClick={() => this.handleUpVote(n)}
+                                            className={classes.voteBtn}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            <ThumbUp />
+                                        </Button>
+                                        <Button
+                                            onClick={() => this.handleDownVote(n)}
+                                            className={classes.voteBtn}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            <ThumbDown/>
+                                        </Button>
+                                    </TableCell>
+                                    }
+                                    {host &&
+                                    <TableCell align="center">
+                                        <Button
+                                            onClick={() => this.handleTableVeto(n)}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            Veto
+                                        </Button>
+                                    </TableCell>
+                                    }
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            );
+        }
+
+        // return(
+        //     <Paper className={classes.root}>
+        //         <Table className={classes.table}>
+        //             <TableHead>
+        //                 <TableRow>
+        //                     <TableCell className={classes.tableHeader} align="center">Song</TableCell>
+        //                     {/*<TableCell align="center">Artist</TableCell>*/}
+        //                     <TableCell className={classes.tableHeader} align="center">Score</TableCell>
+        //                     {!host &&
+        //                     <TableCell className={classes.tableHeader} align="center">Vote</TableCell>
+        //                     }
+        //                     {host &&
+        //                     <TableCell className={classes.tableHeader} align="center">Veto</TableCell>
+        //                     }
+        //                 </TableRow>
+        //             </TableHead>
+        //             <TableBody>
+        //                 {data && data.map(n => (
+        //                     <TableRow key={n._id}>
+        //                         <TableCell className={classes.tableCell} align="left" component="th" scope="row">
+        //                             <div className={classes.songContainer}>
+        //                                 <div className={classes.songTitle}>
+        //                                     {n.title}
+        //                                 </div>
+        //                                 <div className={classes.songArtist}>
+        //                                     {n.artist}
+        //                                 </div>
+        //                             </div>
+        //                         </TableCell>
+        //                         {/*<TableCell align="right">{n.title}</TableCell>*/}
+        //                         {/*<TableCell align="center">{n.artist}</TableCell>*/}
+        //                         <TableCell className={classes.songVotes} align="center">{n.votes}</TableCell>
+        //                         {!host &&
+        //                         <TableCell align="center">
+        //                             <Button
+        //                                 onClick={() => this.handleUpVote(n)}
+        //                                 className={classes.voteBtn}
+        //                                 variant="contained"
+        //                                 color="primary"
+        //                             >
+        //                                 <ThumbUp />
+        //                             </Button>
+        //                             <Button
+        //                                 onClick={() => this.handleDownVote(n)}
+        //                                 className={classes.voteBtn}
+        //                                 variant="contained"
+        //                                 color="primary"
+        //                             >
+        //                                 <ThumbDown/>
+        //                             </Button>
+        //                         </TableCell>
+        //                         }
+        //                         {host &&
+        //                         <TableCell align="center">
+        //                             <Button
+        //                                 onClick={() => this.handleTableVeto(n)}
+        //                                 variant="contained"
+        //                                 color="primary"
+        //                             >
+        //                                 Veto
+        //                             </Button>
+        //                         </TableCell>
+        //                         }
+        //                     </TableRow>
+        //                 ))}
+        //             </TableBody>
+        //         </Table>
+        //     </Paper>
+        // )
     }
 }
 

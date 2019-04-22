@@ -13,7 +13,10 @@ import img from '../assets/american-idiot.jpg'
 import {pink, THEME} from "../encore-theme";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {withStyles} from "@material-ui/core/styles/index";
+import {MediaQuery} from "react-responsive";
 
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import {toRenderProps} from "recompose";
 
 const axios = require('axios');
 
@@ -23,9 +26,16 @@ const styles = theme => ({
         color: pink,
         fontFamily:  "Bowlby One SC",
         fontSize: 30,
-    }
+    },
+    mobile: {
 
+    },
+    notMobile: {
+
+    }
 });
+
+const WithWidth = toRenderProps(withWidth());
 
 class Queue extends Component {
     constructor(props) {
@@ -150,7 +160,9 @@ class Queue extends Component {
             )
         }
         return (
+
             <MuiThemeProvider theme={THEME}>
+
                 <div className="host-queue">
                     <Grid
                         container
@@ -161,23 +173,89 @@ class Queue extends Component {
                         <Grid item xs={12}>
                                 <h2 className={classes.queue}>Welcome to the Party</h2>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <NowPlayingCard
-                                imgUrl={currentSong.cover_art}
-                                title={currentSong.title}
-                                artist={currentSong.artist}
-                            />
-                        </Grid>
+                        <WithWidth>
+                            {({ width }) => <div>
+                                {width === 'xs' &&
+                                    <Grid item xs={12} sm={4}>
+                                        <NowPlayingCard
+                                            imgUrl={currentSong.cover_art}
+                                            title={currentSong.title}
+                                            artist={currentSong.artist}
+                                            isMobile={true}
+                                        />
+                                    </Grid>
+                                }
+                                {width !== 'xs' &&
+                                    <Grid item xs={12} sm={4}>
+                                        <NowPlayingCard
+                                            imgUrl={currentSong.cover_art}
+                                            title={currentSong.title}
+                                            artist={currentSong.artist}
+                                            isMobile={false}
+                                        />
+                                    </Grid>
+                                }
+
+                            </div>}
+                        </WithWidth>
+                        {/*<Grid item xs={12} sm={4}>*/}
+                            {/*<NowPlayingCard*/}
+                                {/*imgUrl={currentSong.cover_art}*/}
+                                {/*title={currentSong.title}*/}
+                                {/*artist={currentSong.artist}*/}
+                            {/*/>*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12} sm={8}>
-                            <SimpleTable
-                                isHost={hosting}
-                                fetchedData={data}
-                                handleVote={this.handleVote}
-                                handleVeto={this.handleVeto}
-                                reRender={this.reRender}
-                            />
+                            <WithWidth>
+                                {({ width }) => <div>
+                                    {width === 'xs' &&
+                                        <SimpleTable
+                                            isHost={hosting}
+                                            fetchedData={data}
+                                            handleVote={this.handleVote}
+                                            handleVeto={this.handleVeto}
+                                            reRender={this.reRender}
+                                            isMobile={true}
+                                        />
+                                    }
+                                    {width !== 'xs' &&
+                                        <SimpleTable
+                                            isHost={hosting}
+                                            fetchedData={data}
+                                            handleVote={this.handleVote}
+                                            handleVeto={this.handleVeto}
+                                            reRender={this.reRender}
+                                            isMobile={false}
+                                        />
+                                    }
+
+                                </div>}
+                            </WithWidth>
+                            {/*<SimpleTable*/}
+                                {/*isHost={hosting}*/}
+                                {/*fetchedData={data}*/}
+                                {/*handleVote={this.handleVote}*/}
+                                {/*handleVeto={this.handleVeto}*/}
+                                {/*reRender={this.reRender}*/}
+                                {/*isMobile={}*/}
+                            {/*/>*/}
                         </Grid>
                     </Grid>
+                    <WithWidth>
+                        {({ width }) => <div>
+                                {width === 'xs' &&
+                                    <div className={classes.mobile}>
+                                        <p>mobile</p>
+                                    </div>
+                                }
+                                {width !== 'xs' &&
+                                <div className={classes.notMobile}>
+                                    <p>not mobile</p>
+                                </div>
+                                }
+
+                            </div>}
+                    </WithWidth>
                 </div>
             </MuiThemeProvider>
         )
