@@ -81,20 +81,38 @@ class Queue extends Component {
     handleVote = (songObj, isUpvote) => {
         //takes in entire song object and handles whether it should be an upvote or downvote
 
+        // const songObject = {
+        //     spotify_id: songObj.spotify_id,
+        //     title: songObj.title,
+        //     artist: songObj.artist,
+        //     cover_art: songObj.cover_art,
+        //     runtime: 0,
+        //     votes: 0
+        // }
+        let queryStr = '';
+        const songID = songObj._id;
+        console.log(songID);
+
         if (isUpvote){
-            //todo post up vote to DB
-            console.log("up vote")
+            queryStr = '/upvote/' + songID
+            console.log(queryStr)
             console.log(songObj)
         }
         else{
-            //todo post down vote to DB
-            console.log("down vote")
-            console.log(songObj)
+            queryStr = '/downvote/' + songID
         }
 
+        axios.post(queryStr, songObj)
+            .then(res => console.log(res.data))
+            .catch(error => {
+                console.log('voting error: ')
+                console.log(error)
+            });
     }
 
     render() {
+
+        console.log(this.state.data)
 
         const { classes } = this.props;
 
