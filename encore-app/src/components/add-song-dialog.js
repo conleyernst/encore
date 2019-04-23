@@ -105,20 +105,33 @@ class AddSongDialog extends Component {
             }
         }
         console.log(this.props.token)
+        var response_data = { "fake" : "filler"};
 
-         axios.get('https://api.spotify.com/v1/search?q=' + songId +'&type=track&market=US&limit=1', config).then(res => {
+         response_data = axios.get('https://api.spotify.com/v1/search?q=' + songId +'&type=track&market=US&limit=1', config).then(res => {
             this.setState({
                 data: res.data.tracks.items
             })
+            response_data = res.data.tracks.items[0];
+            return response_data;
          })
-        console.log(this.state.data)
-        
-        axios.post('/songs/add', this.state.data)
-            .then(res => console.log(this.state.data))
+         console.log("test");
+         console.log(response_data);
+
+
+         //POST to database
+        axios.post('/songs/add', {
+            "spotify_id": response_data.id,
+            "artist": response_data.artists[0].name,
+            "title": response_data.name,
+            "cover_art": response_data.album.images[1].url,
+            "votes": 0,
+            "runtime": response_data.duration_ms
+        }).then(res => console.log(res))
             .catch(error => {
                 console.log('create song error: ')
                 console.log(error)
             });
+
         this.handleClose();
     };
 
