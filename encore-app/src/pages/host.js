@@ -10,10 +10,10 @@ import {withStyles} from "@material-ui/core/styles/index";
 
 var scopes = 'user-read-private user-read-email';
 const URL = 'https://accounts.spotify.com/authorize' +
-    '?response_type=code' +
+    '?response_type=token' +
     '&client_id=' + 'f73f2a98b84e4d399b54992b7f548173' +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent('http://localhost:3001');
+    '&redirect_uri=' + encodeURIComponent('http://localhost:3000');
 
 const adj = [
     'happy',
@@ -44,6 +44,7 @@ const styles = theme => ({
     hostCode: {
         color: pink,
         fontFamily: "Ubuntu",
+        // fontFamily: "Bowlby One SC",
         fontSize: 40,
     },
     hostText: {
@@ -53,11 +54,13 @@ const styles = theme => ({
     },
     hostBtn: {
         margin: 20,
+        // color: theme.palette.primary,
         color: extra_light_pink
     },
     hostPage: {
         width: 500,
         height: 400,
+        // backgroundColor: pink,
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -110,10 +113,6 @@ class Host extends Component {
 
     render() {
 
-        let myBool = false
-        if(this.props.token === ''){
-            myBool = true;
-        }
 
         const { classes } = this.props;
 

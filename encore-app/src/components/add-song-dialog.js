@@ -13,6 +13,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 const axios = require('axios');
 
 
+
 const styles = theme => ({
     songTxt: {
         color: blue,
@@ -32,7 +33,8 @@ class AddSongDialog extends Component {
         super(props)
         this.state = {
             song: 'foo',
-            token: '',
+            data: [],
+            token: ''
         };
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
@@ -53,7 +55,7 @@ class AddSongDialog extends Component {
     makeSongId(songName){
        let songId = songName;
        songId = songId.trim().toLowerCase();
-       songId = songId.replace(/\s+/g, '');
+       songId = songId.replace(/\s+/g, '%20');
        return songId;
     }
 
@@ -80,6 +82,7 @@ class AddSongDialog extends Component {
         });
     };
 
+
     handleSubmit = () => {
         const songName = this.state.song;
         const songId = this.makeSongId(songName);
@@ -94,8 +97,24 @@ class AddSongDialog extends Component {
             runtime: 0,
             votes: 0
         }
-        axios.post('/songs/add', songObject)
-            .then(res => console.log(res.data))
+
+        var temp = {};
+        let config = {
+            headers:{
+                'Authorization' : 'Bearer ' + this.props.token
+            }
+        }
+        console.log(this.props.token)
+
+         axios.get('https://api.spotify.com/v1/search?q=' + songId +'&type=track&market=US&limit=1', config).then(res => {
+            this.setState({
+                data: res.data.tracks.items
+            })
+         })
+        console.log(this.state.data)
+        
+        axios.post('/songs/add', this.state.data)
+            .then(res => console.log(this.state.data))
             .catch(error => {
                 console.log('create song error: ')
                 console.log(error)
