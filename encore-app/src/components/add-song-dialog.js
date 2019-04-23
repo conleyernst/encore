@@ -53,10 +53,10 @@ class AddSongDialog extends Component {
     // onChange={this.handleChange('name')}
 
     makeSongId(songName){
-       let songId = songName;
-       songId = songId.trim().toLowerCase();
-       songId = songId.replace(/\s+/g, '%20');
-       return songId;
+        let songId = songName;
+        songId = songId.trim().toLowerCase();
+        songId = songId.replace(/\s+/g, '%20');
+        return songId;
     }
 
     handleChange = (event) => {
@@ -81,8 +81,7 @@ class AddSongDialog extends Component {
             modalIsOpen: false,
         });
     };
-
-
+    
     handleSubmit = () => {
         const songName = this.state.song;
         const songId = this.makeSongId(songName);
@@ -107,30 +106,30 @@ class AddSongDialog extends Component {
         console.log(this.props.token)
         var response_data = { "fake" : "filler"};
 
-         response_data = axios.get('https://api.spotify.com/v1/search?q=' + songId +'&type=track&market=US&limit=1', config).then(res => {
-            this.setState({
-                data: res.data.tracks.items
-            })
-            response_data = res.data.tracks.items[0];
-            return response_data;
-         })
-         console.log("test");
-         console.log(response_data);
+        axios.get('https://api.spotify.com/v1/search?q=' + songId +'&type=track&market=US&limit=1', config).then(response => {
+            console.log('Get track response: ')
+            console.log(response.data)
+            if (response.data.tracks.items[0]) {
+                const response_data = response.data.tracks.items[0];
 
 
-         //POST to database
-        axios.post('/songs/add', {
-            "spotify_id": response_data.id,
-            "artist": response_data.artists[0].name,
-            "title": response_data.name,
-            "cover_art": response_data.album.images[1].url,
-            "votes": 0,
-            "runtime": response_data.duration_ms
-        }).then(res => console.log(res))
-            .catch(error => {
-                console.log('create song error: ')
-                console.log(error)
-            });
+                //post request
+                axios.post('/songs/add', {
+                    "spotify_id": response_data.id,
+                    "artist": response_data.artists[0].name,
+                    "title": response_data.name,
+                    "cover_art": response_data.album.images[1].url,
+                    "votes": 0,
+                    "runtime": response_data.duration_ms
+                }).then(res => console.log(res))
+                    .catch(error => {
+                        console.log('create song error: ')
+                        console.log(error)
+                    });
+            } else {
+                console.log('error');
+            }
+        })
 
         this.handleClose();
     };
