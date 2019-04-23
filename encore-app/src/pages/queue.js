@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Grid from "@material-ui/core/es/Grid/Grid";
 import SimpleTable from '../components/simple-table';
 import NowPlayingCard from '../components/now-playing';
@@ -103,6 +103,23 @@ class Queue extends Component {
                 console.log('voting error: ')
                 console.log(error)
             });
+
+        axios.get('/songs/' + songID).then(res => {
+            console.log("result:");
+            console.log(res);
+            if (res.data.votes <= -5) {
+                axios.post('/songs/veto/' + songID, {
+                    headers: {'Content-Type': 'application/json',}
+                }).then(res => {
+                    console.log('Removed automatically: ' + songID);
+                    console.log(res.data)
+                });
+            }
+        }).catch(err => {
+            console.log("Auto song removal error");
+            console.error(err);
+            }
+        );
 
         this.reRender();
     }
