@@ -210,36 +210,30 @@ class Dashboard extends React.Component {
             //add host page
             return(
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Host
                             updateProcessing={this.updateProcessing}
                             handleEntry={this.handleEntry}
                             token={this.props.token}
                         />
-                    </Typography>
                 </div>
             )
         }
         else if (joined){
             return(
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Join
                             updateProcessing={this.updateProcessing}
                             handleEntry={this.handleEntry}
                         />
-                    </Typography>
                 </div>
             )
         }
         else{
             return (
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Entry
                             handleEntry={this.handleEntry}
                         />
-                    </Typography>
                 </div>
             )
         }
