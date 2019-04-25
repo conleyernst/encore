@@ -62,6 +62,8 @@ class Queue extends Component {
             console.log('Get Song: failed');
         }
         })
+
+         setTimeout(this.getSongs, 1000);
     }
 
     getCurrentSong() {
@@ -69,7 +71,7 @@ class Queue extends Component {
         //todo: use spotify API to get the current song playing - then assign it to the currentSong variable to pass into the media card
 
         if (this.state.data){
-            currentSong = this.state.data[1]; //placeholder for now, just return the first object in the list
+            currentSong = this.state.data[0]; //placeholder for now, just return the first object in the list
         }
 
         this.setState({

@@ -87,8 +87,6 @@ class NowPlayingCard extends React.Component {
             // classname = classes.mobileCard;
         }
 
-
-        console.log(this.state.width)
         return (
             <Card className={classes.card}>
                 <CardActionArea>

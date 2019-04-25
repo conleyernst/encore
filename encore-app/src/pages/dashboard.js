@@ -172,6 +172,7 @@ class Dashboard extends React.Component {
 
     updateModalState = (modalObj) => {
         this.setState(modalObj)
+        this.forceUpdate();
     }
 
     handleEntry = (host, joined, room_string) => {
