@@ -197,6 +197,11 @@ class Dashboard extends React.Component {
         this.updateStates(false, false, '')
     }
 
+    aboutClicked = () => {
+        const url = 'https://jroman843.wixsite.com/encore?fbclid=IwAR3xk_8B-uaIPPQZj1JEHULZL6OiuEKR96r7xN-lwy_-4_9gxnVHlvHynTk';
+        window.open(url, '_blank');
+    }
+
     pageContent(){
         const { classes } = this.props;
         const { host, joined, room_name} = this.props;
@@ -205,36 +210,30 @@ class Dashboard extends React.Component {
             //add host page
             return(
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Host
                             updateProcessing={this.updateProcessing}
                             handleEntry={this.handleEntry}
                             token={this.props.token}
                         />
-                    </Typography>
                 </div>
             )
         }
         else if (joined){
             return(
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Join
                             updateProcessing={this.updateProcessing}
                             handleEntry={this.handleEntry}
                         />
-                    </Typography>
                 </div>
             )
         }
         else{
             return (
                 <div className={classes.appBarSpacer}>
-                    <Typography>
                         <Entry
                             handleEntry={this.handleEntry}
                         />
-                    </Typography>
                 </div>
             )
         }
@@ -318,7 +317,7 @@ class Dashboard extends React.Component {
                                     <ListItemText className={classes.test} primary="Leave Group"/>
                                 </ListItem>
                             }
-                            <ListItem button>
+                            <ListItem button onClick={this.aboutClicked}>
                                 <ListItemIcon>
                                     <Help />
                                 </ListItemIcon>

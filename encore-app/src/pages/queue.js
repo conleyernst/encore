@@ -179,31 +179,40 @@ class Queue extends Component {
                         <Grid item xs={12}>
                                 <h2 className={classes.queue}>Welcome to the Party</h2>
                         </Grid>
-                        <WithWidth>
-                            {({ width }) => <div>
-                                {width === 'xs' &&
-                                    <Grid className={classes.cardHolder} item xs={12} sm={4}>
-                                        <NowPlayingCard
-                                            imgUrl={currentSong.cover_art}
-                                            title={currentSong.title}
-                                            artist={currentSong.artist}
-                                            isMobile={true}
-                                        />
-                                    </Grid>
-                                }
-                                {width !== 'xs' &&
-                                    <Grid item xs={12} sm={4}>
-                                        <NowPlayingCard
-                                            imgUrl={currentSong.cover_art}
-                                            title={currentSong.title}
-                                            artist={currentSong.artist}
-                                            isMobile={false}
-                                        />
-                                    </Grid>
-                                }
+                        <Grid className={classes.cardHolder} item xs={12} sm={4}>
+                            <NowPlayingCard
+                                imgUrl={currentSong.cover_art}
+                                title={currentSong.title}
+                                artist={currentSong.artist}
+                            />
+                        </Grid>
+                        {/*<Grid className={classes.cardHolder} item xs={12} sm={4}>*/}
+                            {/*<WithWidth>*/}
+                                    {/*{({ width }) => <div>*/}
+                                        {/*{width === 'xs' &&*/}
+                                        {/*<Grid className={classes.cardHolder} item xs={12} sm={4}>*/}
+                                            {/*<NowPlayingCard*/}
+                                                    {/*imgUrl={currentSong.cover_art}*/}
+                                                    {/*title={currentSong.title}*/}
+                                                    {/*artist={currentSong.artist}*/}
+                                                    {/*isMobile={true}*/}
+                                                {/*/>*/}
+                                        {/*</Grid>*/}
+                                        {/*}*/}
+                                        {/*{width !== 'xs' &&*/}
+                                        {/*<Grid className={classes.cardHolder} item xs={12} sm={4}>*/}
+                                            {/*<NowPlayingCard*/}
+                                                    {/*imgUrl={currentSong.cover_art}*/}
+                                                    {/*title={currentSong.title}*/}
+                                                    {/*artist={currentSong.artist}*/}
+                                                    {/*isMobile={false}*/}
+                                                {/*/>*/}
+                                        {/*</Grid>*/}
+                                        {/*}*/}
 
-                            </div>}
-                        </WithWidth>
+                                    {/*</div>}*/}
+                            {/*</WithWidth>*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12} sm={8}>
                             <WithWidth>
                                 {({ width }) => <div>

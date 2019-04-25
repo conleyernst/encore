@@ -6,6 +6,7 @@ import CardActionArea from "@material-ui/core/es/CardActionArea/CardActionArea";
 import CardMedia from "@material-ui/core/es/CardMedia/CardMedia";
 import CardContent from "@material-ui/core/es/CardContent/CardContent";
 import Typography from "@material-ui/core/es/Typography/Typography";
+import WithWidth from "@material-ui/core/es/withWidth/withWidth";
 
 const styles = theme => ({
     card: {
@@ -47,20 +48,57 @@ const styles = theme => ({
             fontSize: 20,
         },
     },
+    mobileCard: {
+        backgroundColor: extra_light_blue,
+
+    }
 });
 
 class NowPlayingCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state = { width: 0, height: 0 };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     render() {
         const { classes } = this.props;
 
-        const { imgUrl, artist, title, isMobile } = this.props;
+        const { imgUrl, artist, title } = this.props;
+
+        let isMobile = false;
+        let classname = classes.card;
+        const breakpoint = 900;
+        if (this.state.width < breakpoint){
+            isMobile = true;
+            // classname = classes.mobileCard;
+        }
+
+
+        console.log(this.state.width)
         return (
             <Card className={classes.card}>
                 <CardActionArea>
+                    {/*<WithWidth>*/}
+                        {/*{({ width }) => <div>*/}
+                        {/*{width === 'xs' &&*/}
+                            {/*<div>extrasmall</div>*/}
+                        {/*}*/}
+                        {/*</div>}*/}
+                    {/*</WithWidth>*/}
                     {!isMobile &&
                         <CardMedia
                             component="img"
